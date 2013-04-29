@@ -16,33 +16,33 @@ namespace petroulette.parser
         // pet attributes
 
 
-        public static uint check_pet_id(Generic_RandomPet generic_randomPet)
+        public static uint check_pet_id(string _id)
         {
-            return uint.Parse(generic_randomPet.genericPet.data.video.pet_id);
+            return uint.Parse(_id);
         }
         public static uint check_pet_nextCounts { get; set; } //TODO
 
-        public static string check_pet_name(Generic_RandomPet generic_randomPet)
+        public static string check_pet_name(string _pet_name)
         {
-            return generic_randomPet.genericPet.data.video.pet.name;
+            return _pet_name;
 
         }
-        public static string check_pet_race(Generic_PetDetails generic_petDetails)
+        public static string check_pet_race(string _pet_race)
         {
-            return generic_petDetails.genericPetDetails.data.pet.race_name;
+            return _pet_race;
         }
-        public static string check_pet_specie(Generic_PetDetails generic_petDetails)
+        public static string check_pet_specie(string _specie_name)
         {
-            return generic_petDetails.genericPetDetails.data.pet.species_name;
+            return _specie_name;
         }
-        public static string check_pet_description(Generic_RandomPet generic_randomPet)
+        public static string check_pet_description(string _description)
         {
-            return generic_randomPet.genericPet.data.video.pet.description;
+            return _description;
         }
-        public static DateTime check_pet_birthDate(Generic_RandomPet generic_randomPet)
+        public static DateTime check_pet_birthDate(string _birthdate)
         {
             DateTime date;
-            string date_string = generic_randomPet.genericPet.data.video.pet.date_of_birth;
+            string date_string = _birthdate;
             try
             {
                 date = DateTime.ParseExact(date_string, "yyyy-MM-dd", null);
@@ -56,10 +56,10 @@ namespace petroulette.parser
 
 
         }
-        public static DateTime check_pet_createdDate(Generic_RandomPet generic_randomPet)
+        public static DateTime check_pet_createdDate(string _created_datetime)
         {
             DateTime date;
-            string date_string = generic_randomPet.genericPet.data.video.pet.created_datetime;
+            string date_string = _created_datetime;
 
             try
             {
@@ -73,20 +73,20 @@ namespace petroulette.parser
             }
 
         } //pet announcement creation date
-        public static Video check_pet_currentVideo(Generic_RandomPet generic_randomPet)
+        public static Video check_pet_currentVideo(string _videolink)
         {
 
-            string url = generic_randomPet.genericPet.data.video.video_link;
+            string url = _videolink;
             Video v = new Video(url);
 
             return v;
 
         }
-        public static List<Video> check_pet_videoList(Generic_PetDetails generic_petDetails)
+        public static List<Video> check_pet_videoList(List<petroulette.model.parser.Generic_PetDetails.modelDetailVideo> videos)
         {
             List<Video> list = new List<Video>();
 
-            foreach (petroulette.model.parser.Generic_PetDetails.modelDetailVideo video in generic_petDetails.genericPetDetails.data.pet.videos)
+            foreach (petroulette.model.parser.Generic_PetDetails.modelDetailVideo video in videos)
             {
                 list.Add(new Video(video.video_link));
             }
@@ -94,30 +94,30 @@ namespace petroulette.parser
 
             return list;
         }
-        public static uint check_shelter_id(Generic_PetDetails generic_petDetails)
+        public static uint check_shelter_id(string _shelterId)
         {
-            return uint.Parse(generic_petDetails.genericPetDetails.data.pet.organization_id);
+            return uint.Parse(_shelterId);
         }
-        public static string check_shelter_phoneNumber(Generic_PetDetails generic_petDetails)
+        public static string check_shelter_phoneNumber(string _phonNumber)
         {
-            return generic_petDetails.genericPetDetails.data.pet.organization.contact_number;
+            return _phonNumber;
         }
-        public static string check_shelter_name(Generic_PetDetails generic_petDetails)
+        public static string check_shelter_name(string _shelterName)
         {
-            return generic_petDetails.genericPetDetails.data.pet.organization.name;
+            return _shelterName;
         }
-        public static string check_shelter_adress(Generic_PetDetails generic_petDetails)
+        public static string check_shelter_adress(string _shelterAdress)
         {
-            return generic_petDetails.genericPetDetails.data.pet.organization.address;
+            return _shelterAdress;
         }
-        public static string check_shelter_email(Generic_PetDetails generic_petDetails)
+        public static string check_shelter_email(string _organizationEmail)
         {
-            return generic_petDetails.genericPetDetails.data.pet.organization.email;
+            return _organizationEmail;
         }
-        public static DateTime check_shelter_creationDate(Generic_PetDetails generic_petDetails)
+        public static DateTime check_shelter_creationDate(string _shelterCreationDate)
         {
             DateTime date;
-            string date_string = generic_petDetails.genericPetDetails.data.pet.organization.created_datetime;
+            string date_string = _shelterCreationDate;
 
             try
             {
@@ -138,16 +138,23 @@ namespace petroulette.parser
         {
 
             Pet currentPet = new Pet(// Pet Creation 
-                   check_pet_id(random), check_pet_name(random), check_pet_race(details),
-                   check_pet_specie(details), check_pet_description(random),
-                   check_pet_birthDate(random), check_pet_createdDate(random),
-                   check_pet_currentVideo(random));
+                   check_pet_id(random.genericPet.data.video.pet_id), 
+                   check_pet_name(random.genericPet.data.video.pet.name), 
+                   check_pet_race(details.genericPetDetails.data.pet.race_name),
+                   check_pet_specie(details.genericPetDetails.data.pet.species_name), 
+                   check_pet_description(random.genericPet.data.video.pet.description),
+                   check_pet_birthDate(random.genericPet.data.video.pet.date_of_birth), 
+                   check_pet_createdDate(random.genericPet.data.video.pet.created_datetime),
+                   check_pet_currentVideo(random.genericPet.data.video.video_link));
 
             currentPet.setDetails(// Pet details fill
-                check_shelter_id(details), check_shelter_phoneNumber(details),
-                check_shelter_name(details), check_shelter_adress(details)
-                , check_shelter_email(details), check_shelter_creationDate(details),
-                check_pet_videoList(details));
+                check_shelter_id(details.genericPetDetails.data.pet.organization_id),
+                check_shelter_phoneNumber(details.genericPetDetails.data.pet.organization.contact_number),
+                check_shelter_name(details.genericPetDetails.data.pet.organization.name),
+                check_shelter_adress(details.genericPetDetails.data.pet.organization.address),
+                check_shelter_email(details.genericPetDetails.data.pet.organization.email),
+                check_shelter_creationDate(details.genericPetDetails.data.pet.organization.created_datetime),
+                check_pet_videoList(details.genericPetDetails.data.pet.videos));
 
             return currentPet;
         }

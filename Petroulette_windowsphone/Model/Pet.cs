@@ -9,7 +9,7 @@ namespace petroulette.model
         #region pet_attributes
 
         public uint pet_id { get;  set; }
-        /* 
+        /*
         Equivalent to : 
          * private uint pet_id_private
          * public uint pet_id
