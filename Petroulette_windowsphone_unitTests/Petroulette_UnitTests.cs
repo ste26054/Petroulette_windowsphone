@@ -42,6 +42,22 @@ namespace Petroulette_windowsphone_unitTests
             Assert.IsTrue(Checker.check_shelter_creationDate("2013-03-01 09:01:45.353121+00:00") == birthday);
         }
 
+        [TestMethod]
+        public void parserRandomCreationTest()
+        {
+            Parser parser = new Parser();
+            parser.random();
+            
+            Assert.IsTrue(parser.error_encountered == false);
+        }
 
+        [TestMethod]
+        public void parserNextCreationTest()
+        {
+            Parser parser = new Parser();
+            parser.random();
+            parser.next();
+            Assert.IsTrue(parser.error_encountered == false);
+        }
     }
 }
