@@ -36,16 +36,20 @@ namespace petroulette.parser
 
       CookieAwareWebClient randomPet; 
       CookieAwareWebClient nextPet;
+    
 
       //Semaphores
       static readonly object _locker = new object();
+    
       static bool _go;
 
-
+      
         public void downloadJsonPet()
         {
 
             randomPet = new CookieAwareWebClient(); //creates a WebClient with cookie support
+            
+           
             Uri URL = new Uri("http://" + Urls.getUrl + Urls.getApiRandom); //Builds the url to server
             randomPet.DownloadStringCompleted += new DownloadStringCompletedEventHandler(processJsonPet); //adds new event
             
@@ -54,11 +58,16 @@ namespace petroulette.parser
                 randomPet.DownloadStringAsync(URL); //Download randomPetJson asynchronously
                 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 error_encountered = true;
                 System.Diagnostics.Debug.WriteLine("An exception occured while downloading /api/random Json !");
-           
+                lock (_locker)
+                {
+                    _go = true;
+                    Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
+                }
+                throw new Exception("dl_json_pet_exception");
             }
 
           
@@ -73,7 +82,7 @@ namespace petroulette.parser
                 this.downloadedJsonPet = jsonString; //Saves the downloaded Json
 
                 Urls.setCookie(randomPet.getCookieContainer()); //keeps the session cookie
-
+               // Urls.setCookie(randomPet.
                 this.downloadJsonPetDetails(); //downloads the details part of pet
             }
             else
@@ -88,6 +97,7 @@ namespace petroulette.parser
                     Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
                 }
                 _go = false;
+                throw new Exception("process_json_pet_exception");
             }
         }
         public void downloadJsonPetDetails()
@@ -106,6 +116,12 @@ namespace petroulette.parser
             {
                 error_encountered = true;
                 System.Diagnostics.Debug.WriteLine("An exception occured while downloading /api/details Json !");
+                lock (_locker)
+                {
+                    _go = true;
+                    Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
+                }
+                throw new Exception("dl_json_pet_details_exception");
             }
 
         }
@@ -137,6 +153,7 @@ namespace petroulette.parser
                     Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
                 }
                 _go = false;
+                throw new Exception("process_json_pet_details_exception");
             }
         }
 
@@ -156,6 +173,12 @@ namespace petroulette.parser
             {
                 error_encountered = true;
                 System.Diagnostics.Debug.WriteLine("An exception occured while downloading /api/next Json !");
+                lock (_locker)
+                {
+                    _go = true;
+                    Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
+                }
+                throw new Exception("dl_next_json_pet_exception");
             }
 
         }
@@ -200,23 +223,53 @@ namespace petroulette.parser
             error_encountered = false;
 
             jsonProcesserThread = new System.Threading.Thread(process);
-            jsonProcesserThread.Start();
+            try
+            {
+                jsonProcesserThread.Start();//the process method will wait for the following method to finish
+            }
+            catch (Exception)
+            {
 
-            this.downloadNextJsonPet();
+            }
+            try
+            {
+                this.downloadNextJsonPet();
+            }
+            catch (System.Net.WebException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
 
-            jsonProcesserThread.Join();
+
+            jsonProcesserThread.Join();//then we wait for the thread itself to finish
             System.Diagnostics.Debug.WriteLine("Next finished !");
         }
 
         public void random() //method to call when we want to perform random
         {
-            error_encountered = false;
+           // next();
+           error_encountered = false;
             jsonProcesserThread = new System.Threading.Thread(process);
-            jsonProcesserThread.Start();
 
-            this.downloadJsonPet();
+            try
+            {
+                jsonProcesserThread.Start();//the process method will wait for the following method to finish
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception !");
+            }
 
-            jsonProcesserThread.Join();
+            try
+            {
+                this.downloadJsonPet();
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Status);
+            }
+
+            jsonProcesserThread.Join();//then we wait for the thread itself to finish
             System.Diagnostics.Debug.WriteLine("Random finished !");
         }
 
