@@ -26,7 +26,7 @@ namespace petroulette.model
         {
             this.video_url = _url;
             //this.video_url = "http://www.youtube.com/watch?v=wXw6znXPfy4"; //Really short video    
-            //this.video_url = "http://www.youtube.com/watch?v=plWnm7UpsXk"; //A cat.
+            //this.video_url = "http://www.youtube.com/watch?v=NauzKqmJ6y8&feature=share"; //A cat.
     
         }
 

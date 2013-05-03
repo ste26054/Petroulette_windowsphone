@@ -72,7 +72,7 @@ namespace Petroulette_windowsphone  //MVVM pattern wasn't used for this preview,
                 Pet_specie.Text = "Specie : " + pet_parser.currentPet.pet_specie;
                 Pet_description.Text = "Description : " + pet_parser.currentPet.pet_description;
                 Pet_shelter.Text = "Shelter : " + pet_parser.currentPet.shelter_name;
-
+                Pet_next_counts.Text = "Next counts : " + pet_parser.currentPet.pet_nextCounts;
                 //debug
                 System.Diagnostics.Debug.WriteLine("Video URI is :");
                 System.Diagnostics.Debug.WriteLine(pet_parser.currentPet.pet_currentVideo.video_uri);

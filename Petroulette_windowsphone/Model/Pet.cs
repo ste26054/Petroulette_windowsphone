@@ -47,7 +47,7 @@ namespace petroulette.model
         //********************* METHODS ********************* //
 
         //Creates the pet with informations provided by the parser after we call /api/random/
-        public Pet(uint pet_id, string _name, string _race, string _specie, string _description, DateTime _birthDate, DateTime _createdDate, Video _video )
+        public Pet(uint pet_id, string _name, string _race, string _specie, string _description, uint _next_counts, DateTime _birthDate, DateTime _createdDate, Video _video )
         {
             this.pet_id = pet_id;
             this.pet_name = _name; //calls the setter of pet_name property
@@ -57,6 +57,8 @@ namespace petroulette.model
             this.pet_birthDate = _birthDate;
             this.pet_createdDate = _createdDate;
             this.pet_currentVideo = _video;
+
+            this.pet_nextCounts = _next_counts;
 
             this.pet_videoList = new List<Video>();
         }

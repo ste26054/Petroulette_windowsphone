@@ -10,8 +10,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" OrientationChanged="MainPage_OrientationChanged"
     >
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -55,15 +55,18 @@
         </Grid>
        -->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="0,30,0,0" >
-            <MediaElement CurrentStateChanged="Media_State_Changed" x:Name="player" VerticalAlignment="Center" Height="270" />
-            <ProgressBar x:Name="loading" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+            <MediaElement CurrentStateChanged="Media_State_Changed" x:Name="player" VerticalAlignment="Stretch" MinHeight="280" RenderTransformOrigin="0.5,0.5" />
+            <StackPanel x:Name="ControlPanel">
+                <ProgressBar x:Name="loading" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
 
-            <TextBlock x:Name="mediaStateTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock x:Name="mediaStateTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button x:Name="Next_button" IsEnabled="False" Content="Next this pet !" Click="Next_button_Click" />
             <TextBlock x:Name="Pet_name" HorizontalAlignment="Left"  />
+            <TextBlock x:Name="Pet_next_counts" HorizontalAlignment="Left"  />
             <TextBlock x:Name="Pet_specie" HorizontalAlignment="Left"  />
             <TextBlock x:Name="Pet_description" HorizontalAlignment="Left"  />
             <TextBlock x:Name="Pet_shelter" HorizontalAlignment="Left"  />
+            </StackPanel>
         </StackPanel>
 
 

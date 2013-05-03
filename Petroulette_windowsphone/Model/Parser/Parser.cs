@@ -238,6 +238,7 @@ namespace petroulette.parser
             catch (System.Net.WebException e)
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
+                throw new Exception("next_exception");
             }
 
 

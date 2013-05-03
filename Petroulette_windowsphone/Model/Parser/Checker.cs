@@ -20,7 +20,8 @@ namespace petroulette.parser
         {
             return uint.Parse(_id);
         }
-        public static uint check_pet_nextCounts { get; set; } //TODO
+        public static uint check_pet_nextCounts(string _next_counts)
+        { return uint.Parse(_next_counts); } 
 
         public static string check_pet_name(string _pet_name)
         {
@@ -143,6 +144,7 @@ namespace petroulette.parser
                    check_pet_race(details.genericPetDetails.data.pet.race_name),
                    check_pet_specie(details.genericPetDetails.data.pet.species_name), 
                    check_pet_description(random.genericPet.data.video.pet.description),
+                   check_pet_nextCounts(random.genericPet.data.video.pet.next_count),
                    check_pet_birthDate(random.genericPet.data.video.pet.date_of_birth), 
                    check_pet_createdDate(random.genericPet.data.video.pet.created_datetime),
                    check_pet_currentVideo(random.genericPet.data.video.video_link));

@@ -20,6 +20,7 @@ namespace petroulette.model.parser
            public string created_datetime { get; set; }
            public string available_until { get; set; }
            public string organization_id { get; set; }
+           public string next_count { get; set; }
            public string date_of_birth { get; set; }
            public string race_id { get; set; }
            public string id { get; set; }

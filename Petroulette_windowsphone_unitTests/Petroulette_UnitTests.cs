@@ -13,7 +13,7 @@ namespace Petroulette_windowsphone_unitTests
     public class Petroulette_UnitTests
     {
       
-        
+
         [TestMethod]
         public void VideoUrlTest()
         {

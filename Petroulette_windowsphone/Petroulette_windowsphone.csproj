@@ -124,15 +124,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GeneratedSequenceDiagrams\MainPage_MainPage.sequencediagram" />
     <None Include="packages.config" />
-    <None Include="GeneratedSequenceDiagrams\Parser_process.sequencediagram" />
-    <None Include="GeneratedSequenceDiagrams\Parser_random.sequencediagram" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="GeneratedSequenceDiagrams\Video_getVideoUri.sequencediagram" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AlignmentGrid.png" />
@@ -160,27 +156,21 @@
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GeneratedSequenceDiagrams\MainPage_MainPage.sequencediagram.layout">
-      <DependentUpon>MainPage_MainPage.sequencediagram</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeneratedSequenceDiagrams\Parser_process.sequencediagram.layout">
-      <DependentUpon>Parser_process.sequencediagram</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeneratedSequenceDiagrams\Parser_random.sequencediagram.layout">
-      <DependentUpon>Parser_random.sequencediagram</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GeneratedSequenceDiagrams\Video_getVideoUri.sequencediagram.layout">
-      <DependentUpon>Video_getVideoUri.sequencediagram</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WP8">
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WP8">
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.WP8.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
