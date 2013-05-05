@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using Petroulette_windowsphone;
 using petroulette.model;
-using petroulette.parser;
 using petroulette.model.parser;
 
 

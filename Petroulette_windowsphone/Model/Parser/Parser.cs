@@ -13,9 +13,10 @@ using Newtonsoft.Json;
 using petroulette.model;
 using petroulette.model.api;
 using petroulette.model.parser;
+using GalaSoft.MvvmLight.Messaging;
 
 
-namespace petroulette.parser
+namespace petroulette.model.parser
 {
 
 
@@ -36,7 +37,7 @@ namespace petroulette.parser
 
       CookieAwareWebClient randomPet; 
       CookieAwareWebClient nextPet;
-    
+
 
       //Semaphores
       static readonly object _locker = new object();
@@ -239,11 +240,15 @@ namespace petroulette.parser
             {
                 System.Diagnostics.Debug.WriteLine(e.ToString());
                 throw new Exception("next_exception");
+                
             }
 
 
             jsonProcesserThread.Join();//then we wait for the thread itself to finish
             System.Diagnostics.Debug.WriteLine("Next finished !");
+           // Messenger.Default.Send<Parser>(this);
+           //Messenger.Default.Send<string>("NEXT_FINISHED");
+           Messenger.Default.Send<Parser>(this);
         }
 
         public void random() //method to call when we want to perform random
@@ -272,11 +277,22 @@ namespace petroulette.parser
 
             jsonProcesserThread.Join();//then we wait for the thread itself to finish
             System.Diagnostics.Debug.WriteLine("Random finished !");
+            
+
+            //MESSENGER
+            Messenger.Default.Send<Parser>(this);
+         
         }
 
         public Parser()
-        {       }
+        {}
 
+        public Parser(int a)
+        {
+           Thread thread = new System.Threading.Thread(random);
+           thread.Start();
+     
+        }
 
     }
 

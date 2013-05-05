@@ -3,15 +3,12 @@
   <metadata>
     <id>MyToolkit</id>
     <version>1.13.0</version>
-    <title>MyToolkit</title>
+    <title />
     <authors>Rico Suter</authors>
     <owners>Rico Suter</owners>
     <projectUrl>http://mytoolkit.codeplex.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Website: mytoolkit.codeplex.com</description>
-    <releaseNotes />
-    <copyright />
-    <language />
     <references>
       <reference file="MyToolkit.dll" />
     </references>

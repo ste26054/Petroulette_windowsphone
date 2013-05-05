@@ -4,11 +4,13 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Petroulette_windowsphone.Resources;
+using MvvmLight4.Resources;
+using MvvmLight4.ViewModel;
 
-namespace Petroulette_windowsphone
+namespace MvvmLight4
 {
     public partial class App : Application
     {
@@ -17,6 +19,15 @@ namespace Petroulette_windowsphone
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
+
+
+        private void Application_Startup(
+    object sender,
+    StartupEventArgs e)
+        {
+            RootVisual = new MainPage();
+            DispatcherHelper.Initialize();
+        }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -39,7 +50,7 @@ namespace Petroulette_windowsphone
             if (Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-           //     Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                Application.Current.Host.Settings.EnableFrameRateCounter = false;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -79,6 +90,7 @@ namespace Petroulette_windowsphone
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            ViewModelLocator.Cleanup();
         }
 
         // Code to execute if a navigation fails
@@ -116,6 +128,8 @@ namespace Petroulette_windowsphone
             // screen to remain active until the application is ready to render.
             RootFrame = new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
+
+            DispatcherHelper.Initialize();
 
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;

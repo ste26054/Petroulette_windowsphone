@@ -1,6 +1,6 @@
-﻿using Petroulette_windowsphone.Resources;
+﻿using MvvmLight4.Resources;
 
-namespace Petroulette_windowsphone
+namespace MvvmLight4
 {
     /// <summary>
     /// Provides access to string resources.

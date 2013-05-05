@@ -25,14 +25,14 @@ namespace petroulette.model.api
             return httpRequest;
         }
 
-        protected override WebResponse GetWebResponse(WebRequest request, IAsyncResult result)
+     /*   protected override WebResponse GetWebResponse(WebRequest request, IAsyncResult result)
         {
             
                     WebResponse response = base.GetWebResponse(request, result);
                   
   
             return response;
-    }
+    }*/
 
                 
 

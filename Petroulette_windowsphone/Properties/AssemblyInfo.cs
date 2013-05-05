@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Petroulette_windowsphone")]
+[assembly: AssemblyTitle("MvvmLight4")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Petroulette_windowsphone")]
+[assembly: AssemblyProduct("MvvmLight4")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ea716123-19e6-4a0e-aed0-592147621d7a")]
+[assembly: Guid("3fe500f1-ee1e-41ba-a422-d811f4ebab93")]
 
 // Version information for an assembly consists of the following four values:
 //

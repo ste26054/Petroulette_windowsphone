@@ -8,7 +8,7 @@ using petroulette.model;
 using petroulette.model.api;
 using petroulette.model.parser;
 
-namespace petroulette.parser
+namespace petroulette.model.parser
 {
    public static class Checker
     {
