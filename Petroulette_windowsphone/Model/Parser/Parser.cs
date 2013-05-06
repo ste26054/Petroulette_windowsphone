@@ -14,6 +14,7 @@ using petroulette.model;
 using petroulette.model.api;
 using petroulette.model.parser;
 using GalaSoft.MvvmLight.Messaging;
+using System.Collections.ObjectModel;
 
 
 namespace petroulette.model.parser
@@ -294,6 +295,32 @@ namespace petroulette.model.parser
      
         }
 
+        
+
     }
+
+  public class videoCollection
+  {
+      public ObservableCollection<Video> Videos
+      {
+          get { return _videos; }
+      }
+      Pet pet;
+      private readonly ObservableCollection<Video> _videos = new ObservableCollection<Video>();
+
+      public videoCollection(Pet _pet)
+      {
+          pet = _pet;
+          var list = new List<Video>();
+          list = pet.pet_videoList;
+          //var oc = new ObservableCollection<Video>();
+          foreach (Video v in list)
+          {
+              //v.video_thumbnail = "http://img.youtube.com/vi/FMVVDm1mwvM/0.jpg";
+              _videos.Add(v);
+          }
+          
+      }
+  }
 
 }

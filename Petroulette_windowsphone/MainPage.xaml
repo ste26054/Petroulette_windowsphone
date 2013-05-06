@@ -58,31 +58,45 @@
            
                 <!--ContentPanel - place additional content here-->
         
-            <StackPanel x:Name="ContentPanel" Grid.Row="1" >
+            <StackPanel x:Name="ContentPanel" Grid.Row="1" Grid.RowSpan="2" >
             <Grid Margin="10,0" Height="280">
-            		<Grid Grid.RowSpan="3" Grid.ColumnSpan="3">
+            		<Grid>
                 
-            			<TextBlock x:Name="mediaStateTextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" Text="MediaState" Margin="0" />
-                
-            			<MediaElement  x:Name="player" MinHeight="280" MaxHeight="340" Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" />
+            			<MediaElement  x:Name="player" MinHeight="280" MaxHeight="340" Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" MediaFailed="player_MediaFailed" CurrentStateChanged="player_CurrentStateChanged" />
+            			<ProgressBar x:Name="LoadingProgress" HorizontalAlignment="Center" Height="10" VerticalAlignment="Center" Width="200" BorderThickness="0,0,1,1" IsIndeterminate="True"/>
             		</Grid>
             	</Grid>
-            <ProgressBar x:Name="Loading" HorizontalAlignment="Stretch" VerticalAlignment="Top" Value="{Binding CurrentProgress, Mode=OneWay}"/>
+            <ProgressBar x:Name="Loading" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
             <Grid Margin="10,0">
                 <Button Grid.Row="0" Grid.Column="0" Content="Adopt this pet !" HorizontalAlignment="Left" />
                 <Button Grid.Row="0"  Grid.Column="1" x:Name="Next_button" IsEnabled="True" Content="Next this pet !" Click="Next_button_Click" HorizontalAlignment="Right" />
             </Grid>
 
-            <ScrollViewer Grid.Row="3" Margin="10,0">
-                <StackPanel x:Name="ControlPanel" Grid.Row="3" Margin="0,5,0,0">
+            <ScrollViewer Grid.Row="3" Margin="20,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <StackPanel x:Name="ControlPanel" Grid.Row="3" Margin="5,5,0,0">
 
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetName}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetNextCounts}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetSpecie}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetRace}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetDescription}"  />
-                
+
+                    <ListBox VerticalAlignment="Top" ItemsSource="{Binding Videos}" BorderThickness="5,0,0,0"  >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image  HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100" Source="{Binding video_thumbnail}"  />
+                                   
+                                        <TextBlock Text="{Binding video_title}"   />
+                                      
+                                        
+                                    
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
+                
             </ScrollViewer>
             </StackPanel>
             

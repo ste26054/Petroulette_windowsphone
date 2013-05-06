@@ -166,10 +166,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WP8">
-      <HintPath>..\..\..\..\..\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.WP8">
-      <HintPath>..\..\..\..\..\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.WP8.dll</HintPath>
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.WP8.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>

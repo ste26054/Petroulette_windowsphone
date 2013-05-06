@@ -6,12 +6,26 @@ using System.ComponentModel;
 using petroulette.model.parser;
 using petroulette.model;
 using System;
+using System.Collections.ObjectModel;
+using System.Net;
 namespace MvvmLight4.ViewModel
 {
  
     
     public class MainViewModel : ViewModelBase
     {
+        public ObservableCollection<Video> Videos
+        {
+            get
+            {
+                return _videos;
+            }
+            set
+            {
+                _videos = value;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("Videos"); });
+            }
+        }
 
         public string ApplicationName { get { return "PETROULETTE MOBILE APP"; } }
         public string PageName { get { return "random pet"; } }
@@ -24,13 +38,34 @@ namespace MvvmLight4.ViewModel
             set;
         }
 
+       /* public string VideoThumbnail
+        {
+            get
+            {
+                return _videoThumbnail;
+            }
+            set
+            {
+                _videoThumbnail = value;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("VideoThumbnail"); });
+            }
+        }*/
+
         public Uri video_url { get; set; }
+
+        public ObservableCollection<Video> _videos;
         private double _currentProgress;
         private string _petName;
         private string _petNextCounts;
         private string _petSpecie;
         private string _petRace;
         private string _petDescription;
+        private string _videoThumbnail;
+
+
+        WebClient wc = new WebClient();
+    
+
         public string PetName
         {
             get { return "Pet name : " + _petName; }
@@ -48,7 +83,6 @@ namespace MvvmLight4.ViewModel
             {
                 _petNextCounts = value;
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetNextCounts"); });
-
             }
         }
         public string PetSpecie
@@ -99,9 +133,9 @@ namespace MvvmLight4.ViewModel
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged(""); });
             }
         }
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+
+        
+
         public MainViewModel()
         {
             if (!ViewModelBase.IsInDesignModeStatic)
@@ -113,6 +147,8 @@ namespace MvvmLight4.ViewModel
                 Messenger.Default.Register<string>("NEXT_CLICKED", process_next);
                 Messenger.Default.Register<string>("GOT_URI", process_play);
                // Messenger.Default.Register<Parser>("NEXT_FINISHED", process_fill);
+
+
                 theParser = new Parser(1);
                 CurrentProgress = 0;
                 // DispatcherHelper.CheckBeginInvokeOnUI(() => { item.next();  });
@@ -134,6 +170,8 @@ namespace MvvmLight4.ViewModel
             PetDescription = thePet.pet_description;
             PetRace = thePet.pet_race;
             PetSpecie = thePet.pet_specie;
+            Videos = new videoCollection(thePet).Videos;
+            //VideoThumbnail = thePet.pet_currentVideo.video_thumbnail;
             bool error = false;
             int i = 0;
             do

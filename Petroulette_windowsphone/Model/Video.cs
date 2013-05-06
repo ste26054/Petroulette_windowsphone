@@ -18,21 +18,30 @@ namespace petroulette.model
     {
         public string video_url { get; set; }
         public Uri video_uri { get; set; }
-
+        public string video_thumbnail { get; set; }
+        public string video_title { get; set; }
         static readonly object _locker = new object();
         static bool _go;
         Exception exception;
 
-        public Video(string _url)
+        public Video(string _url, string _title)
         {
             this.video_url = _url;
-            
+            this.video_thumbnail = this.getThumbnail();
+            this.video_title = _title;
             //this.getVideoUri(); //This method needs bandwidth, maybe consider calling it only if needed ?
 
 
             //this.video_url = "http://www.youtube.com/watch?v=wXw6znXPfy4"; //Really short video    
             //this.video_url = "http://www.youtube.com/watch?v=NauzKqmJ6y8&feature=share"; //A cat.
     
+        }
+
+        public string getThumbnail()
+        {
+            System.Diagnostics.Debug.WriteLine("GENERATED THUMBNAIL");
+            return "http://img.youtube.com/vi/" + this.getYoutubeId() + "/0.jpg";
+
         }
 
         public string getYoutubeId() //Method that uses a regexp to get the video id from any youtube url

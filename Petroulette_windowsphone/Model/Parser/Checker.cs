@@ -74,11 +74,11 @@ namespace petroulette.model.parser
             }
 
         } //pet announcement creation date
-        public static Video check_pet_currentVideo(string _videolink)
+        public static Video check_pet_currentVideo(string _videolink, string _videotitle)
         {
 
             string url = _videolink;
-            Video v = new Video(url);
+            Video v = new Video(url, _videotitle);
 
             return v;
 
@@ -89,7 +89,7 @@ namespace petroulette.model.parser
 
             foreach (petroulette.model.parser.Generic_PetDetails.modelDetailVideo video in videos)
             {
-                list.Add(new Video(video.video_link));
+                list.Add(new Video(video.video_link, video.title));
             }
 
 
@@ -147,7 +147,7 @@ namespace petroulette.model.parser
                    check_pet_nextCounts(random.genericPet.data.video.pet.next_count),
                    check_pet_birthDate(random.genericPet.data.video.pet.date_of_birth), 
                    check_pet_createdDate(random.genericPet.data.video.pet.created_datetime),
-                   check_pet_currentVideo(random.genericPet.data.video.video_link));
+                   check_pet_currentVideo(random.genericPet.data.video.video_link, random.genericPet.data.video.title));
 
             currentPet.setDetails(// Pet details fill
                 check_shelter_id(details.genericPetDetails.data.pet.organization_id),

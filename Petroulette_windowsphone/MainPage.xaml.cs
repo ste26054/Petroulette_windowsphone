@@ -67,7 +67,11 @@ namespace MvvmLight4
 
         private void Next_button_Click(object sender, RoutedEventArgs e)
         {
-            player.Stop();
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                LoadingProgress.IsIndeterminate = true;
+                player.Stop();
+            });
             ResetLoadingPreferences();
             Messenger.Default.Send<string>("NEXT_CLICKED"); //BOTH ARE CALLED
             Next_button.IsEnabled = false;
@@ -92,6 +96,26 @@ namespace MvvmLight4
             }
          
         
+        }
+
+        private void player_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+
+        }
+
+        private void player_CurrentStateChanged(object sender, RoutedEventArgs e)
+        {
+            if ((player.CurrentState.ToString() == "Opening") || (player.CurrentState.ToString() == "Buffering"))
+            {
+                LoadingProgress.IsIndeterminate = true;
+                LoadingProgress.Visibility = Visibility.Visible;
+            }
+
+            else
+            {
+                LoadingProgress.IsIndeterminate = false;
+                LoadingProgress.Visibility = Visibility.Collapsed;
+            }
         }
        
     }
