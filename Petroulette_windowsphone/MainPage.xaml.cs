@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using MvvmLight4.Resources;
 using petroulette.model.parser;
+using petroulette.model;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Threading;
@@ -115,6 +116,42 @@ namespace MvvmLight4
             {
                 LoadingProgress.IsIndeterminate = false;
                 LoadingProgress.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void player_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(player.CurrentState.ToString());
+
+            if (player.CurrentState.ToString().Equals("Playing"))
+                player.Pause();
+
+            else
+                player.Play();
+            
+        }
+
+        private void player_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+          
+                player.Stop();
+                player.Play();
+           
+        }
+
+        private void ListBox_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("ITEM CLICKED ! " + e.OriginalSource.ToString());
+            
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                System.Diagnostics.Debug.WriteLine("TEST !!" + ((Video)VideoList.SelectedItem).video_title);
+                Messenger.Default.Send<Video>((Video)VideoList.SelectedItem);
+                
             }
         }
        

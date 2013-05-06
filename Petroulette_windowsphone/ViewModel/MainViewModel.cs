@@ -8,6 +8,8 @@ using petroulette.model;
 using System;
 using System.Collections.ObjectModel;
 using System.Net;
+using System.Windows;
+
 namespace MvvmLight4.ViewModel
 {
  
@@ -54,13 +56,16 @@ namespace MvvmLight4.ViewModel
         public Uri video_url { get; set; }
 
         public ObservableCollection<Video> _videos;
-        private double _currentProgress;
+       // private double _currentProgress;
         private string _petName;
         private string _petNextCounts;
         private string _petSpecie;
         private string _petRace;
         private string _petDescription;
-        private string _videoThumbnail;
+        private string _petBirthDate;
+        private string _AnounceCreationDate;
+        private string _AnounceExpirationDate;
+       // private string _videoThumbnail;
 
 
         WebClient wc = new WebClient();
@@ -68,7 +73,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetName
         {
-            get { return "Pet name : " + _petName; }
+            get { return "Pet name :  " + _petName; }
             set
             {
                _petName = value;
@@ -78,7 +83,7 @@ namespace MvvmLight4.ViewModel
         }
         public string PetNextCounts
         {
-            get { return "Pet Next Counts : " + _petNextCounts; }
+            get { return "Pet Next Counts :  " + _petNextCounts; }
             set
             {
                 _petNextCounts = value;
@@ -87,7 +92,7 @@ namespace MvvmLight4.ViewModel
         }
         public string PetSpecie
         {
-            get { return "Pet Specie : " + _petSpecie; }
+            get { return "Pet Specie :  " + _petSpecie; }
             set
             {
                 _petSpecie = value;
@@ -98,7 +103,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetRace
         {
-            get { return "Pet Race : " + _petRace; }
+            get { return "Pet Race :  " + _petRace; }
             set
             {
 
@@ -115,7 +120,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetDescription
         {
-            get { return "Pet Description : " + _petDescription; }
+            get { return "Pet Description :  " + _petDescription; }
             set
             {
                 _petDescription = value;
@@ -123,14 +128,38 @@ namespace MvvmLight4.ViewModel
 
             }
         }
-        
-        public double CurrentProgress
+
+        public string PetBirthDate
         {
-            get { return _currentProgress; }
+            get { return "Pet Birthdate :  " + _petBirthDate; }
             set
             {
-                _currentProgress = value;
-                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged(""); });
+                _petBirthDate = value;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetBirthDate"); });
+
+            }
+        }
+
+        public string AnounceCreationDate
+        {
+            get { return "Anounce creation date :  " + _AnounceCreationDate; }
+            set
+            {
+                _AnounceCreationDate = value;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AnounceCreationDate"); });
+
+            }
+        }
+
+        public string AnounceExpirationDate
+        {
+            get { return "Anounce expiration date :  " + _AnounceExpirationDate; }
+            set
+            {
+                //_AnounceExpirationDate = value;
+                _AnounceExpirationDate = "TODO";
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AnounceExpirationDate"); });
+
             }
         }
 
@@ -146,11 +175,14 @@ namespace MvvmLight4.ViewModel
                 //Messenger.Default.Register<string>("NEXT_FINISHED", process_random);
                 Messenger.Default.Register<string>("NEXT_CLICKED", process_next);
                 Messenger.Default.Register<string>("GOT_URI", process_play);
+                Messenger.Default.Register<string>("EXCEPTION", process_exception);
+                
+                Messenger.Default.Register<Video>(this, process_video_changed);
                // Messenger.Default.Register<Parser>("NEXT_FINISHED", process_fill);
 
 
                 theParser = new Parser(1);
-                CurrentProgress = 0;
+                
                 // DispatcherHelper.CheckBeginInvokeOnUI(() => { item.next();  });
                 // WelcomeTitle = item.currentPet.pet_currentVideo.video_url;
             }
@@ -159,26 +191,18 @@ namespace MvvmLight4.ViewModel
                  
         }
 
-        void process_fill(Parser _parser)
+        void process_video_changed(Video v)
         {
-            CurrentProgress = 50;
-            Messenger.Default.ToString();
-            // System.Diagnostics.Debug.WriteLine("FINISHED ! " + _parser.currentPet.pet_currentVideo.video_uri);
-            thePet = theParser.currentPet;
-            PetNextCounts = Convert.ToString(thePet.pet_nextCounts);
-            PetName = thePet.pet_name;
-            PetDescription = thePet.pet_description;
-            PetRace = thePet.pet_race;
-            PetSpecie = thePet.pet_specie;
-            Videos = new videoCollection(thePet).Videos;
-            //VideoThumbnail = thePet.pet_currentVideo.video_thumbnail;
+            thePet.pet_currentVideo = v;
             bool error = false;
             int i = 0;
-            do
+            System.Threading.ThreadPool.QueueUserWorkItem(delegate
+            {
+                do
             {
                 try
                 {
-                    thePet.pet_currentVideo.getVideoUri();
+                    v.getVideoUri();
                     error = false;
                 }
                 catch (Exception e)
@@ -189,14 +213,63 @@ namespace MvvmLight4.ViewModel
                 }
             }
             while (error == true && i < 5);
-            //video_url = thePet.pet_currentVideo.video_uri;
-            // Messenger.Default.Send<Uri>(this.video_url);
+            }, null);
+            
+        }
+        void process_exception(string str)
+        {
+            if (str.Equals("EXCEPTION"))
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    MessageBox.Show("An error occured. Please check your internet connection !");
+                });
+
+            }
+        }
+
+        void process_fill(Parser _parser)
+        {
+            if (!theParser.error_encountered)
+            {
+                Messenger.Default.ToString();
+                // System.Diagnostics.Debug.WriteLine("FINISHED ! " + _parser.currentPet.pet_currentVideo.video_uri);
+                thePet = theParser.currentPet;
+                PetNextCounts = Convert.ToString(thePet.pet_nextCounts);
+                PetName = thePet.pet_name;
+                PetDescription = thePet.pet_description;
+                PetRace = thePet.pet_race;
+                PetSpecie = thePet.pet_specie;
+                PetBirthDate = thePet.pet_birthDate.ToShortDateString();
+                AnounceCreationDate = thePet.pet_createdDate.ToShortDateString();
+                AnounceExpirationDate = "";
+                Videos = new videoCollection(thePet).Videos;
+                //VideoThumbnail = thePet.pet_currentVideo.video_thumbnail;
+                bool error = false;
+                int i = 0;
+                do
+                {
+                    try
+                    {
+                        thePet.pet_currentVideo.getVideoUri();
+                        error = false;
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("EXCEPTION !");
+                        i++;
+                        error = true;
+                    }
+                }
+                while (error == true && i < 5);
+            }
+            else
+                MessageBox.Show("error");
+
         }
 
         void process_random(string str)
         {
-          //  DispatcherHelper.RunAsync(() => { theParser.random(); });
-           // theParser.random();
             if(str.Equals("MEDIA_ENDED"))
             {
             System.Threading.ThreadPool.QueueUserWorkItem(delegate
@@ -229,8 +302,6 @@ namespace MvvmLight4.ViewModel
             if (str.Equals("GOT_URI"))
             {
                 Messenger.Default.Send<Uri>(this.thePet.pet_currentVideo.video_uri);
-                CurrentProgress = 100;
-   
             }
         }
         

@@ -99,7 +99,9 @@ namespace petroulette.model.parser
                     Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
                 }
                 _go = false;
-                throw new Exception("process_json_pet_exception");
+
+                Messenger.Default.Send<string>("EXCEPTION");
+                //throw new Exception("process_json_pet_exception");
             }
         }
         public void downloadJsonPetDetails()
