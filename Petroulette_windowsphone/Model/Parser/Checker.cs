@@ -132,6 +132,23 @@ namespace petroulette.model.parser
             }
         }
 
+        public static DateTime check_pet_availableUntilDate(string _shelter_availableUntilDate)
+        {
+            DateTime date;
+            string date_string = _shelter_availableUntilDate;
+
+            try
+            {
+                date = DateTime.ParseExact(date_string.Split(' ')[0], "yyyy-MM-dd", null); //THROW EXCEPTION
+                return date;
+            }
+            catch (FormatException)
+            {
+                System.Diagnostics.Debug.WriteLine("Unable to convert '{0}' in shelter_creationDate", date_string);
+                return DateTime.ParseExact("2013-01-01", "yyyy-MM-dd", null);
+            }
+        }
+
         #endregion 
 
 
@@ -147,7 +164,9 @@ namespace petroulette.model.parser
                    check_pet_nextCounts(random.genericPet.data.video.pet.next_count),
                    check_pet_birthDate(random.genericPet.data.video.pet.date_of_birth), 
                    check_pet_createdDate(random.genericPet.data.video.pet.created_datetime),
-                   check_pet_currentVideo(random.genericPet.data.video.video_link, random.genericPet.data.video.title));
+                   check_pet_availableUntilDate(details.genericPetDetails.data.pet.available_until),
+                   check_pet_currentVideo(random.genericPet.data.video.video_link, random.genericPet.data.video.title)
+                   );
 
             currentPet.setDetails(// Pet details fill
                 check_shelter_id(details.genericPetDetails.data.pet.organization_id),

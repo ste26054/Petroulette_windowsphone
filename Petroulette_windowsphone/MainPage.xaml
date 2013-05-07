@@ -86,7 +86,8 @@
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetBirthDate}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding AnounceCreationDate}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding AnounceExpirationDate}"  />
-                    <Line  X1="240" Y1="0"  Margin="0,10,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Line>
+                    <Line  X1="240" Y1="0"  Margin="0,13,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Line>
+                    <TextBlock  HorizontalAlignment="Center"  Text="Other videos for this pet" Margin="0,0,0,10"  />
                     <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" x:Name="VideoList" ItemsSource="{Binding Videos}" BorderThickness="0" Tap="ListBox_Tap" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-10,0" Height="283" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>

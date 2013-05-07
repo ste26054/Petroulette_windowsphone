@@ -134,7 +134,11 @@ namespace MvvmLight4.ViewModel
             get { return "Pet Birthdate :  " + _petBirthDate; }
             set
             {
+                if (value.Equals("1/1/2013"))
+                    _petBirthDate = "-";
+                else
                 _petBirthDate = value;
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetBirthDate"); });
 
             }
@@ -145,7 +149,11 @@ namespace MvvmLight4.ViewModel
             get { return "Anounce creation date :  " + _AnounceCreationDate; }
             set
             {
+                if (value.Equals("1/1/2013"))
+                    _AnounceCreationDate = "-";
+                else
                 _AnounceCreationDate = value;
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AnounceCreationDate"); });
 
             }
@@ -156,8 +164,11 @@ namespace MvvmLight4.ViewModel
             get { return "Anounce expiration date :  " + _AnounceExpirationDate; }
             set
             {
-                //_AnounceExpirationDate = value;
-                _AnounceExpirationDate = "TODO";
+                if (value.Equals("1/1/2013"))
+                    _AnounceExpirationDate = "-";
+                else
+                    _AnounceExpirationDate = value;
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AnounceExpirationDate"); });
 
             }
@@ -242,7 +253,7 @@ namespace MvvmLight4.ViewModel
                 PetSpecie = thePet.pet_specie;
                 PetBirthDate = thePet.pet_birthDate.ToShortDateString();
                 AnounceCreationDate = thePet.pet_createdDate.ToShortDateString();
-                AnounceExpirationDate = "";
+                AnounceExpirationDate = thePet.pet_availableUntilDate.ToShortDateString();
                 Videos = new videoCollection(thePet).Videos;
                 //VideoThumbnail = thePet.pet_currentVideo.video_thumbnail;
                 bool error = false;
