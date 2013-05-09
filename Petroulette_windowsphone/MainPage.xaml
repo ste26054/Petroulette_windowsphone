@@ -10,17 +10,17 @@
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
-                            SupportedOrientations="Portrait"
+                            SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True"
-                            DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded_1">
+                            DataContext="{Binding Main, Source={StaticResource Locator}}" Loaded="PhoneApplicationPage_Loaded_1" OrientationChanged="MainPage_OrientationChanged">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" MinHeight="582"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -59,24 +59,33 @@
 
         <!--ContentPanel - place additional content here-->
 
-        <StackPanel x:Name="ContentPanel"   Grid.Row="1" >
-            <Grid Margin="10,0" Height="280">
-                <Grid>
+        <Grid Grid.Row="1" >
 
-                    <MediaElement  x:Name="player" MinHeight="280" MaxHeight="340" Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" MediaFailed="player_MediaFailed" CurrentStateChanged="player_CurrentStateChanged" Tap="player_Tap" DoubleTap="player_DoubleTap" />
-                    <ProgressBar x:Name="LoadingProgress" HorizontalAlignment="Center" Height="10" VerticalAlignment="Center" Width="200" BorderThickness="0,0,1,1" IsIndeterminate="True"/>
-                </Grid>
-            </Grid>
-            <ProgressBar x:Name="Loading" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-            <Grid Margin="10,0">
+           
+                <MediaElement  x:Name="player" MinHeight="280"  Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" MediaFailed="player_MediaFailed" CurrentStateChanged="player_CurrentStateChanged" Tap="player_Tap" DoubleTap="player_DoubleTap"  />
+       
+
+            <ProgressBar x:Name="LoadingProgress" HorizontalAlignment="Center" Height="10" VerticalAlignment="Center" Width="200" BorderThickness="0,0,1,1" IsIndeterminate="True"/>
+            <ProgressBar x:Name="Loading" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+
+        </Grid>
+
+
+
+
+
+        <StackPanel x:Name="ContentPanel"   Grid.Row="2" >
+
+
+            <Grid x:Name="Buttons" Margin="10,0">
                 <Button Grid.Row="0" Grid.Column="0" Content="Adopt this pet !" HorizontalAlignment="Left" />
                 <Button Grid.Row="0"  Grid.Column="1" x:Name="Next_button" IsEnabled="True" Content="Next this pet !" Click="Next_button_Click" HorizontalAlignment="Right" />
             </Grid>
 
-            <ScrollViewer  VerticalScrollBarVisibility="Auto" Margin="20,0,0,10" HorizontalAlignment="Left" Height="320"  >
+            <ScrollViewer  VerticalScrollBarVisibility="Auto" Margin="20,0,10,10" Height="298"  >
 
 
-                <StackPanel x:Name="ControlPanel"  Width="450">
+                <StackPanel x:Name="ControlPanel"  >
 
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetName}"  />
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding PetNextCounts}"  />
@@ -88,7 +97,7 @@
                     <TextBlock  HorizontalAlignment="Left" Text="{Binding AnounceExpirationDate}"  />
                     <Line  X1="240" Y1="0"  Margin="0,13,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Line>
                     <TextBlock  HorizontalAlignment="Center"  Text="Other videos for this pet" Margin="0,0,0,10"  />
-                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" x:Name="VideoList" ItemsSource="{Binding Videos}" BorderThickness="0" Tap="ListBox_Tap" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-10,0" Height="283" >
+                    <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" x:Name="VideoList" ItemsSource="{Binding Videos}" BorderThickness="0" Tap="ListBox_Tap" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-10,0" Height="Auto" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

@@ -53,10 +53,16 @@ namespace petroulette.model
             string id = "";
 
             if (youtubeMatch.Success)
+            {
                 id = youtubeMatch.Groups[1].Value;
+                System.Diagnostics.Debug.WriteLine("Video Url : http://www.youtube.com/watch?v=" + id);
+
+            }
             else
+            {
+                System.Diagnostics.Debug.WriteLine("Youtube id mismatch");
                 throw new Exception("get_youtube_id_exception");
-            
+            }
             return id;
           //  return "1234";
         }

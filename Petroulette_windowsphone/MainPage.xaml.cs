@@ -18,6 +18,37 @@ namespace MvvmLight4
 {
     public partial class MainPage : PhoneApplicationPage
     {
+
+        void MainPage_OrientationChanged(object sender, OrientationChangedEventArgs e) //To do when app will detect phone orientations
+        {
+               if (e.Orientation == PageOrientation.LandscapeLeft || e.Orientation == PageOrientation.LandscapeRight)
+               {
+                   TitlePanel.Visibility = System.Windows.Visibility.Collapsed;
+                   Buttons.Visibility = System.Windows.Visibility.Collapsed;
+                   ControlPanel.Visibility = System.Windows.Visibility.Collapsed;
+                   SystemTray.IsVisible = false;
+
+
+
+                   player.Height = Double.NaN;
+                   player.Width = Double.NaN;
+
+                   player.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+                   player.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+
+
+                
+
+               }
+               else
+               {
+                   TitlePanel.Visibility = System.Windows.Visibility.Visible;
+                   Buttons.Visibility = System.Windows.Visibility.Visible;
+                   ControlPanel.Visibility = System.Windows.Visibility.Visible;
+                   SystemTray.IsVisible = true;
+               }
+        }
+
         DispatcherTimer timer;
 
         public MainPage()
