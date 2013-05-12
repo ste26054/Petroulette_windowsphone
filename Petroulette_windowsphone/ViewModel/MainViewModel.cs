@@ -76,7 +76,12 @@ namespace MvvmLight4.ViewModel
             get { return "Pet name :  " + _petName; }
             set
             {
+                if (value.Equals(""))
+                    _petRace = "Undefined";
+
+                else
                _petName = value;
+
                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetName"); });
                
             }
@@ -86,7 +91,11 @@ namespace MvvmLight4.ViewModel
             get { return "Pet Next Counts :  " + _petNextCounts; }
             set
             {
+                if (value.Equals(""))
+                    _petRace = "-";
+                else
                 _petNextCounts = value;
+                
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetNextCounts"); });
             }
         }
@@ -95,6 +104,10 @@ namespace MvvmLight4.ViewModel
             get { return "Pet Specie :  " + _petSpecie; }
             set
             {
+                if (value.Equals(""))
+                    _petSpecie = "Undefined";
+                
+                else
                 _petSpecie = value;
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetSpecie"); });
 
@@ -123,7 +136,12 @@ namespace MvvmLight4.ViewModel
             get { return "Pet Description :  " + _petDescription; }
             set
             {
+                if (value.Equals(""))
+                    _petDescription = "-";
+
+                else
                 _petDescription = value;
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("PetDescription"); });
 
             }

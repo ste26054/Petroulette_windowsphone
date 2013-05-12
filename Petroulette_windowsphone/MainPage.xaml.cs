@@ -13,6 +13,7 @@ using petroulette.model;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace MvvmLight4
 {
@@ -29,19 +30,22 @@ namespace MvvmLight4
                    SystemTray.IsVisible = false;
 
 
+                
 
-                   player.Height = Double.NaN;
-                   player.Width = Double.NaN;
 
-                   player.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-                   player.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
-
+                   player.MaxWidth = System.Windows.Application.Current.Host.Content.ActualHeight;
+                   player.MaxHeight = System.Windows.Application.Current.Host.Content.ActualWidth;
+            
+                   
 
                 
 
                }
                else
                {
+                   player.MaxWidth = System.Windows.Application.Current.Host.Content.ActualWidth;
+                   player.MaxHeight = System.Windows.Application.Current.Host.Content.ActualHeight;
+
                    TitlePanel.Visibility = System.Windows.Visibility.Visible;
                    Buttons.Visibility = System.Windows.Visibility.Visible;
                    ControlPanel.Visibility = System.Windows.Visibility.Visible;
@@ -58,6 +62,8 @@ namespace MvvmLight4
             timer.Interval = TimeSpan.FromMilliseconds(200);
             timer.Tick += new EventHandler(timer_tick);
             Messenger.Default.Register<Uri>("PLAY_REQUESTED", play);
+            Next_button.IsEnabled = false;
+            Adopt_button.IsEnabled = false;
 
         }
 
@@ -79,6 +85,7 @@ namespace MvvmLight4
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 Next_button.IsEnabled = true;
+                Adopt_button.IsEnabled = true;
                 player.Stop();
                 player.Source = url;
                 player.Play();
@@ -93,7 +100,8 @@ namespace MvvmLight4
         private void player_MediaEnded(object sender, RoutedEventArgs e)
         {
             Next_button.IsEnabled = false;
-            Messenger.Default.Send<string>("MEDIA_ENDED"); //BOTH ARE CALLED
+            Adopt_button.IsEnabled = false;
+            Messenger.Default.Send<string>("MEDIA_ENDED"); 
             ResetLoadingPreferences();
         }
 
@@ -105,8 +113,9 @@ namespace MvvmLight4
                 player.Stop();
             });
             ResetLoadingPreferences();
-            Messenger.Default.Send<string>("NEXT_CLICKED"); //BOTH ARE CALLED
+            Messenger.Default.Send<string>("NEXT_CLICKED"); 
             Next_button.IsEnabled = false;
+            Adopt_button.IsEnabled = false;
         }
 
         void timer_tick(object sender, EventArgs e)

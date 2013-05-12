@@ -157,7 +157,8 @@ namespace petroulette.model.parser
                     Monitor.Pulse(_locker); //Notify that download is finished so we can start parsing
                 }
                 _go = false;
-                throw new Exception("process_json_pet_details_exception");
+                //throw new Exception("process_json_pet_details_exception");
+                Messenger.Default.Send<string>("EXCEPTION");
             }
         }
 
