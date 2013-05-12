@@ -44,7 +44,7 @@ namespace MvvmLight4
                else
                {
                    player.MaxWidth = System.Windows.Application.Current.Host.Content.ActualWidth;
-                   player.MaxHeight = System.Windows.Application.Current.Host.Content.ActualHeight;
+                   player.MaxHeight = 320;
 
                    TitlePanel.Visibility = System.Windows.Visibility.Visible;
                    Buttons.Visibility = System.Windows.Visibility.Visible;
@@ -193,6 +193,32 @@ namespace MvvmLight4
                 Messenger.Default.Send<Video>((Video)VideoList.SelectedItem);
                 
             }
+        }
+
+        private void ApplicationBarMenuItem_Click(object sender, EventArgs e)
+        {//TODO
+
+            Next_button.IsEnabled = false;
+            Adopt_button.IsEnabled = false;
+            Messenger.Default.Send<string>("MEDIA_ENDED");
+            ResetLoadingPreferences();
+       
+        }
+
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        {
+            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            {
+                
+                MessageBox.Show("Hints :\n- Tap to play/pause the video\n- Double tap to restart the video\n- Hold tap to hide/show the bottom bar !");
+            });
+        }
+
+    
+
+        private void PhoneApplicationPage_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
         }
        
     }

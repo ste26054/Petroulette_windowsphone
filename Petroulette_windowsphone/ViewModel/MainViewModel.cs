@@ -293,7 +293,11 @@ namespace MvvmLight4.ViewModel
                 while (error == true && i < 5);
             }
             else
-                MessageBox.Show("error");
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                {
+                    MessageBox.Show("An error occured. Please check your internet connection !");
+                });
+               
 
         }
 
