@@ -63,7 +63,7 @@ namespace petroulette.model.parser
             catch (Exception e)
             {
                 error_encountered = true;
-                System.Diagnostics.Debug.WriteLine("An exception occured while downloading /api/random Json !");
+                System.Diagnostics.Debug.WriteLine("An exception occured while downloading /api/random Json !" + e.Message);
                 lock (_locker)
                 {
                     _go = true;
@@ -267,7 +267,7 @@ namespace petroulette.model.parser
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Exception !");
+                System.Diagnostics.Debug.WriteLine("Exception !" + e.Message);
             }
 
             try

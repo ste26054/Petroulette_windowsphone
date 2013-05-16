@@ -31,7 +31,7 @@ namespace MvvmLight4.ViewModel
 
         public string ApplicationName { get { return "PETROULETTE MOBILE APP"; } }
         public string PageName { get { return "random pet"; } }
-
+        public string NetworkErrorMessage { get { return "An error occured. Please check your internet connection, then tap \"...\" on the bottom bar and \"Reload Application\""; } }
         public Parser theParser { get; set; }
 
         public Pet thePet
@@ -40,6 +40,7 @@ namespace MvvmLight4.ViewModel
             set;
         }
 
+        public int error_count { get; set; }
        /* public string VideoThumbnail
         {
             get
@@ -65,6 +66,18 @@ namespace MvvmLight4.ViewModel
         private string _petBirthDate;
         private string _AnounceCreationDate;
         private string _AnounceExpirationDate;
+
+        private string _petShelterName;
+        private string _petShelterAddress;
+        private string _petShelterEmail;
+        private string _petShelterPhoneNumber;
+
+        private string _appointmentName;
+        private string _appointmentEmail;
+        private string _appointmentPhoneNumber;
+        private DateTime _appointmentDate;
+        private bool _appointmentOk;
+
        // private string _videoThumbnail;
 
 
@@ -73,7 +86,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetName
         {
-            get { return "Pet name :  " + _petName; }
+            get { return  _petName; }
             set
             {
                 if (value.Equals(""))
@@ -88,7 +101,7 @@ namespace MvvmLight4.ViewModel
         }
         public string PetNextCounts
         {
-            get { return "Pet Next Counts :  " + _petNextCounts; }
+            get { return _petNextCounts; }
             set
             {
                 if (value.Equals(""))
@@ -101,7 +114,7 @@ namespace MvvmLight4.ViewModel
         }
         public string PetSpecie
         {
-            get { return "Pet Specie :  " + _petSpecie; }
+            get { return  _petSpecie; }
             set
             {
                 if (value.Equals(""))
@@ -116,7 +129,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetRace
         {
-            get { return "Pet Race :  " + _petRace; }
+            get { return  _petRace; }
             set
             {
 
@@ -133,7 +146,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetDescription
         {
-            get { return "Pet Description :  " + _petDescription; }
+            get { return _petDescription; }
             set
             {
                 if (value.Equals(""))
@@ -149,7 +162,7 @@ namespace MvvmLight4.ViewModel
 
         public string PetBirthDate
         {
-            get { return "Pet Birthdate :  " + _petBirthDate; }
+            get { return  _petBirthDate; }
             set
             {
                 if (value.Equals("1/1/2013"))
@@ -164,7 +177,7 @@ namespace MvvmLight4.ViewModel
 
         public string AnounceCreationDate
         {
-            get { return "Anounce creation date :  " + _AnounceCreationDate; }
+            get { return  _AnounceCreationDate; }
             set
             {
                 if (value.Equals("1/1/2013"))
@@ -179,7 +192,7 @@ namespace MvvmLight4.ViewModel
 
         public string AnounceExpirationDate
         {
-            get { return "Anounce expiration date :  " + _AnounceExpirationDate; }
+            get { return  _AnounceExpirationDate; }
             set
             {
                 if (value.Equals("1/1/2013"))
@@ -192,23 +205,168 @@ namespace MvvmLight4.ViewModel
             }
         }
 
-        
+        public string ShelterName
+        {
+            get { return _petShelterName; }
+            set
+            {
+                if (value.Equals(""))
+                    _petShelterName = "-";
+                else
+                    _petShelterName = value;
 
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("ShelterName"); });
+
+            }
+        }
+
+        public string ShelterAddress
+        {
+            get { return _petShelterAddress; }
+            set
+            {
+                if (value.Equals(""))
+                    _petShelterAddress = "-";
+                else
+                    _petShelterAddress = value;
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("ShelterAddress"); });
+
+            }
+        }
+
+        public string ShelterPhoneNumber
+        {
+            get { return _petShelterPhoneNumber; }
+            set
+            {
+                if (value.Equals(""))
+                    _petShelterPhoneNumber = "-";
+                else
+                    _petShelterPhoneNumber = value;
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("ShelterPhoneNumber"); });
+
+            }
+        }
+
+
+        public string ShelterEmail
+        {
+            get { return _petShelterEmail; }
+            set
+            {
+                if (value.Equals(""))
+                    _petShelterEmail = "-";
+                else
+                    _petShelterEmail = value;
+
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("ShelterEmail"); });
+
+            }
+        }
+
+
+        public string AppointmentName
+        {
+            get { return _appointmentName; }
+            set
+            {
+                _appointmentName = value;
+                CheckAppointment();
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentName"); });
+
+            }
+        }
+
+        public string AppointmentEmail
+        {
+            get { return _appointmentEmail; }
+            set
+            {
+                _appointmentEmail = value;
+                CheckAppointment();
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentEmail"); });
+
+            }
+        }
+
+
+        public bool AppointmentOk
+        {
+            get { return _appointmentOk; }
+            set
+            {
+                _appointmentOk = value;
+               // CheckAppointment();
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentOk"); });
+
+            }
+        }
+
+        public string AppointmentPhoneNumber
+        {
+            get { return _appointmentPhoneNumber; }
+            set
+            {
+                _appointmentPhoneNumber = value;
+                CheckAppointment();
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentPhoneNumber"); });
+
+            }
+        }
+
+        public DateTime AppointmentDate
+        {
+            get { return _appointmentDate; }
+            set
+            {
+                _appointmentDate = value;
+                CheckAppointment();
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentDate"); });
+
+            }
+        }
+
+        public void CheckAppointment()
+        {
+            if (Checker.check_user_email(AppointmentEmail) && Checker.check_user_name(AppointmentName) && Checker.check_user_phone_number(AppointmentPhoneNumber) && Checker.check_user_requested_date(AppointmentDate))
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { AppointmentOk = true; });
+
+            else
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { AppointmentOk = false; });
+            
+        }
+
+        public void ReinitializeAppointment()
+        {
+            AppointmentDate = System.DateTime.Now;
+            AppointmentEmail = "";
+            AppointmentName = "";
+            AppointmentPhoneNumber = "";
+        }
         public MainViewModel()
         {
             if (!ViewModelBase.IsInDesignModeStatic)
             {
-                
+                this.error_count = 0;
                 Messenger.Default.Register<Parser>(this, process_fill);
                 Messenger.Default.Register<string>("MEDIA_ENDED", process_random);
                 //Messenger.Default.Register<string>("NEXT_FINISHED", process_random);
                 Messenger.Default.Register<string>("NEXT_CLICKED", process_next);
                 Messenger.Default.Register<string>("GOT_URI", process_play);
                 Messenger.Default.Register<string>("EXCEPTION", process_exception);
-                
                 Messenger.Default.Register<Video>(this, process_video_changed);
-               // Messenger.Default.Register<Parser>("NEXT_FINISHED", process_fill);
+                //Messenger.Default.Register<Parser>("NEXT_FINISHED", process_fill);
 
+                
+
+                _appointmentDate = System.DateTime.Now;
+                _appointmentEmail = "";
+                _appointmentName = "";
+                _appointmentPhoneNumber = "";
+               
+           
 
                 theParser = new Parser(1);
                 
@@ -216,7 +374,9 @@ namespace MvvmLight4.ViewModel
                 // WelcomeTitle = item.currentPet.pet_currentVideo.video_url;
             }
             else
-            {     }
+            {
+                AppointmentDate = System.DateTime.Now;
+            }
                  
         }
 
@@ -236,7 +396,7 @@ namespace MvvmLight4.ViewModel
                 }
                 catch (Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine("EXCEPTION !");
+                    System.Diagnostics.Debug.WriteLine("EXCEPTION !" + e.Message);
                     i++;
                     error = true;
                 }
@@ -249,9 +409,17 @@ namespace MvvmLight4.ViewModel
         {
             if (str.Equals("EXCEPTION"))
             {
+                this.error_count++;
+
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
-                    MessageBox.Show("An error occured. Please check your internet connection !");
+                    if (error_count >= 3)
+                    {
+                        MessageBox.Show(NetworkErrorMessage);
+                        error_count = 0;
+                    }
+                    else
+                        Messenger.Default.Send<string>("MEDIA_ENDED"); 
                 });
 
             }
@@ -261,8 +429,8 @@ namespace MvvmLight4.ViewModel
         {
             if (!theParser.error_encountered)
             {
-                Messenger.Default.ToString();
-                // System.Diagnostics.Debug.WriteLine("FINISHED ! " + _parser.currentPet.pet_currentVideo.video_uri);
+
+                ReinitializeAppointment();
                 thePet = theParser.currentPet;
                 PetNextCounts = Convert.ToString(thePet.pet_nextCounts);
                 PetName = thePet.pet_name;
@@ -273,7 +441,13 @@ namespace MvvmLight4.ViewModel
                 AnounceCreationDate = thePet.pet_createdDate.ToShortDateString();
                 AnounceExpirationDate = thePet.pet_availableUntilDate.ToShortDateString();
                 Videos = new videoCollection(thePet).Videos;
-                //VideoThumbnail = thePet.pet_currentVideo.video_thumbnail;
+
+                ShelterAddress = thePet.shelter_adress;
+                ShelterEmail = thePet.shelter_email;
+                ShelterName = thePet.shelter_name;
+                ShelterPhoneNumber = thePet.shelter_phoneNumber;
+
+
                 bool error = false;
                 int i = 0;
                 do
@@ -285,7 +459,7 @@ namespace MvvmLight4.ViewModel
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Debug.WriteLine("EXCEPTION !");
+                        System.Diagnostics.Debug.WriteLine("EXCEPTION !" + e.Message);
                         i++;
                         error = true;
                     }
@@ -293,11 +467,19 @@ namespace MvvmLight4.ViewModel
                 while (error == true && i < 5);
             }
             else
+            {
+                this.error_count++;
                 DispatcherHelper.CheckBeginInvokeOnUI(() =>
                 {
-                    MessageBox.Show("An error occured. Please check your internet connection !");
+                    if (error_count >= 3)
+                    {
+                        MessageBox.Show(NetworkErrorMessage);
+                        error_count = 0;
+                    }
+                    else
+                        Messenger.Default.Send<string>("MEDIA_ENDED");
                 });
-               
+            }
 
         }
 
@@ -309,7 +491,7 @@ namespace MvvmLight4.ViewModel
             {
                 theParser.random();
             }, null);
-            System.Diagnostics.Debug.WriteLine("A VIDEO HAS FINISHED BY ITSELF !");
+            System.Diagnostics.Debug.WriteLine("Random requested");
             }
         }
 

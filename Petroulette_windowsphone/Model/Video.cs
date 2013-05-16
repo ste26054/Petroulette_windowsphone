@@ -113,6 +113,7 @@ namespace petroulette.model
                    if (entry != null)
                    {
                        this.video_uri = new Uri(entry.Uri.AbsoluteUri);
+                       System.Diagnostics.Debug.WriteLine(this.video_uri);
 
                        lock (_locker)
                        {

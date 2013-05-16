@@ -14,6 +14,7 @@ using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows.Threading;
 using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 
 namespace MvvmLight4
 {
@@ -141,11 +142,14 @@ namespace MvvmLight4
 
         private void player_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("MEDIA FAILED !");
 
         }
 
         private void player_CurrentStateChanged(object sender, RoutedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Player current state : " + player.CurrentState);
+
             if ((player.CurrentState.ToString() == "Opening") || (player.CurrentState.ToString() == "Buffering"))
             {
                 LoadingProgress.IsIndeterminate = true;
@@ -219,6 +223,13 @@ namespace MvvmLight4
         private void PhoneApplicationPage_Hold(object sender, System.Windows.Input.GestureEventArgs e)
         {
             this.ApplicationBar.IsVisible = !this.ApplicationBar.IsVisible;
+        }
+
+       
+        private void Adopt_button_click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage2.xaml", UriKind.Relative));
+
         }
        
     }

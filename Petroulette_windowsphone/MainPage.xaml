@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-       
+
 
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
@@ -46,11 +46,19 @@
 
         <!--TitlePanel contains the name of the application and page title-->
 
+
+
+        <!--TitlePanel contains the name of the application and page title-->
+
+
+
+        <!--TitlePanel contains the name of the application and page title-->
+
         <StackPanel x:Name="TitlePanel"
                     Grid.Row="0" d:IsLocked="False"  
                     >
 
-           <!-- <TextBlock Text="{Binding ApplicationName}"
+            <!-- <TextBlock Text="{Binding ApplicationName}"
                        Style="{StaticResource PhoneTextNormalStyle}"
                        Margin="12,0" />-->
             <TextBlock Text="petroulette"
@@ -62,9 +70,9 @@
 
         <Grid Grid.Row="1" >
 
-           
-                <MediaElement  x:Name="player" MinHeight="280" MaxHeight="320" Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" MediaFailed="player_MediaFailed" CurrentStateChanged="player_CurrentStateChanged" Tap="player_Tap" DoubleTap="player_DoubleTap" Margin="0"   />
-       
+
+            <MediaElement  x:Name="player" MinHeight="280" MaxHeight="300" Source="{Binding video_url}" MediaEnded="player_MediaEnded" MediaOpened="player_MediaOpened" MediaFailed="player_MediaFailed" CurrentStateChanged="player_CurrentStateChanged" Tap="player_Tap" DoubleTap="player_DoubleTap" Margin="0"   />
+
 
             <ProgressBar x:Name="LoadingProgress" HorizontalAlignment="Center" Height="10" VerticalAlignment="Center" Width="200" BorderThickness="0,0,1,1" IsIndeterminate="True"/>
             <ProgressBar x:Name="Loading"  VerticalAlignment="Bottom" Grid.Row="1"/>
@@ -74,37 +82,72 @@
 
 
 
-
         <StackPanel x:Name="ContentPanel"   Grid.Row="2" d:IsLocked="False" >
 
 
             <Grid x:Name="Buttons" Margin="10,0">
-                <Button Grid.Row="0" Grid.Column="0" x:Name="Adopt_button" Content="Adopt this pet !" HorizontalAlignment="Left" />
-                <Button Grid.Row="0"  Grid.Column="1" x:Name="Next_button" IsEnabled="True" Content="Next this pet !" Click="Next_button_Click" HorizontalAlignment="Right" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Row="0" Grid.Column="0" x:Name="Adopt_button" Content="Adopt this pet !"  Click="Adopt_button_click" />
+                <Button Grid.Row="0"  Grid.Column="1" x:Name="Next_button" IsEnabled="True" Content="Next this pet !" Click="Next_button_Click" />
             </Grid>
 
             <ScrollViewer  VerticalScrollBarVisibility="Visible" Margin="20,0,10,10" Height="300"  >
 
 
                 <StackPanel x:Name="ControlPanel"  >
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Name :"  Grid.Row="0" Grid.Column="0"/>
+                        <TextBlock Text="{Binding PetName}"  Grid.Row="0" Grid.Column="1"/>
 
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetName}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetNextCounts}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetSpecie}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetRace}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetDescription}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding PetBirthDate}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding AnounceCreationDate}"  />
-                    <TextBlock  HorizontalAlignment="Left" Text="{Binding AnounceExpirationDate}"  />
-                    <Line  X1="240" Y1="0"  Margin="0,13,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"></Line>
+                        <TextBlock Text="Next Counts :"  Grid.Row="1" Grid.Column="0"/>
+                        <TextBlock Text="{Binding PetNextCounts}"  Grid.Row="1" Grid.Column="1"/>
+
+                        <TextBlock Text="Specie :" Grid.Row="2" Grid.Column="0" />
+                        <TextBlock Text="{Binding PetSpecie}" Grid.Row="2" Grid.Column="1" />
+
+                        <TextBlock Text="Race :" Grid.Row="3" Grid.Column="0" />
+                        <TextBlock Text="{Binding PetRace}" Grid.Row="3" Grid.Column="1" />
+
+                        <TextBlock Text="Description :" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" />
+                        <TextBlock Text="{Binding PetDescription}"  TextWrapping="Wrap" Grid.Row="4" Grid.Column="1"/>
+
+                        <TextBlock Text="Birth Date :" Grid.Row="5" Grid.Column="0" />
+                        <TextBlock Text="{Binding PetBirthDate}"  Grid.Row="5" Grid.Column="1"/>
+
+                        <TextBlock Text="Announce Created :" Grid.Row="6" Grid.Column="0" />
+                        <TextBlock Text="{Binding AnounceCreationDate}"  Grid.Row="6" Grid.Column="1"/>
+
+                        <TextBlock Text="Announce Expires :" Grid.Row="7" Grid.Column="0" />
+                        <TextBlock Text="{Binding AnounceExpirationDate}" Grid.Row="7" Grid.Column="1" />
+                    </Grid>
+
+                    <Line  X1="240" Y1="0"  Margin="0,13,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock  HorizontalAlignment="Center"  Text="Other videos for this pet" Margin="0,0,0,10"  />
                     <ListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" x:Name="VideoList" ItemsSource="{Binding Videos}" BorderThickness="0" Tap="ListBox_Tap" SelectionChanged="ListBox_SelectionChanged" Margin="0,0,-10,0" Height="Auto" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image  HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="150" Source="{Binding video_thumbnail}" Margin="20,0,0,0" />
+                                    <Image   Width="150" Height="150" Source="{Binding video_thumbnail}"  />
 
-                                    <TextBlock Text="{Binding video_title}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"   />
+                                    <TextBlock Text="{Binding video_title}" VerticalAlignment="Center"  TextWrapping="Wrap" Margin="0,0,5,0"  />
 
 
 
@@ -124,9 +167,6 @@
 
 
         </StackPanel>
-        <Popup>
-        	<Grid Background="#FFE5E5E5" Height="100" Width="100"/>
-        </Popup>
 
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
@@ -144,7 +184,7 @@
 
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Reload Application" Click="ApplicationBarMenuItem_Click"/>
-              
+
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

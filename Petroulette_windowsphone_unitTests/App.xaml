@@ -6,9 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
 
     <!--Application Resources-->
-    <Application.Resources>
-        <local:LocalizedStrings xmlns:local="clr-namespace:Petroulette_windowsphone_unitTests" x:Key="LocalizedStrings"/>
-    </Application.Resources>
+
 
     <Application.ApplicationLifetimeObjects>
         <!--Required object that handles lifetime events for the application-->

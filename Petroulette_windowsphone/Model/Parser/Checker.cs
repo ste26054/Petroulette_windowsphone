@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 using petroulette.model;
 using petroulette.model.api;
 using petroulette.model.parser;
+using System.Text.RegularExpressions;
 
 namespace petroulette.model.parser
 {
    public static class Checker
     {
-        #region checker : set of methods that control and format attributes we got from Jsons
+        #region Pet_checker : set of methods that control and format attributes we got from Jsons
         // pet attributes
 
 
@@ -150,6 +152,54 @@ namespace petroulette.model.parser
         }
 
         #endregion 
+
+
+        #region Appointment_checker
+        public static bool check_user_name(string _user_name)
+        {
+
+            if (_user_name.Equals(""))
+                return false;
+
+            else
+                return true;
+        }
+
+        public static bool check_user_email(string _user_email)
+        {
+            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            
+            Match match = regex.Match(_user_email);
+            if (match.Success)
+            {
+                return true;
+            }
+
+            else
+                return false;
+        }
+
+        public static bool check_user_requested_date(DateTime _requested_date)
+        {
+
+            if (DateTime.Now > _requested_date)
+                return false;
+            else
+                return true;
+        }
+
+        public static bool check_user_phone_number(string _phone_number)
+        {
+
+            if(_phone_number.Equals("")) //TODO : Regex expression using malaysian phones
+                return false;
+            else
+                return true;
+        }
+
+
+
+        #endregion
 
 
        public static Pet createPet( Generic_RandomPet random, Generic_PetDetails details)
