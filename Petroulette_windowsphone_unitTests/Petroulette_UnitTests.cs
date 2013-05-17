@@ -16,7 +16,7 @@ namespace Petroulette_windowsphone_unitTests
         [TestMethod]
         public void VideoUrlTest()
         {
-            Video video = new Video("http://www.youtube.com/watch?v=plWnm7UpsXk");
+            Video video = new Video("http://www.youtube.com/watch?v=plWnm7UpsXk","test");
             Assert.IsTrue(video.getYoutubeId().Equals("plWnm7UpsXk"));
         }
 

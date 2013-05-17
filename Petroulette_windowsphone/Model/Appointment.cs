@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace petroulette.model
 {
-    class Appointment //Class that will handle appointments in the future
+    public class Appointment //Class that will handle appointments in the future
     {
 
         #region appointment_attributes

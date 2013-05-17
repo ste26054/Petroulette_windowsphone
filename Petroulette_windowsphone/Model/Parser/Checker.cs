@@ -191,10 +191,12 @@ namespace petroulette.model.parser
         public static bool check_user_phone_number(string _phone_number)
         {
 
-            if(_phone_number.Equals("")) //TODO : Regex expression using malaysian phones
+            if (_phone_number.Equals("")) //TODO : Regex expression using malaysian phones
                 return false;
-            else
+            else if (Regex.Match(_phone_number, @"^[0-9]+(\.[0-9]+)?$").Success)
                 return true;
+            else
+                return false;
         }
 
 

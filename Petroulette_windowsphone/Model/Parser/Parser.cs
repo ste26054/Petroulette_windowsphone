@@ -35,6 +35,7 @@ namespace petroulette.model.parser
       public bool error_encountered { get; set; }
       public Generic_RandomPet generic_randomPet { get; set; } //A generic pet
       public Generic_PetDetails generic_petDetails { get; set; } //And his generic details
+      public Generic_Appointment generic_Appointment { get; set; }
 
       CookieAwareWebClient randomPet; 
       CookieAwareWebClient nextPet;
@@ -288,6 +289,52 @@ namespace petroulette.model.parser
          
         }
 
+
+
+
+        public void post(Appointment a)
+        {
+            
+            randomPet.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+            var uri = new Uri("http://" + Urls.getUrl + Urls.getApiAppointment, UriKind.Absolute);
+
+            StringBuilder postData = new StringBuilder();
+
+            postData.AppendFormat("{0}={1}", "name", HttpUtility.UrlEncode(a.user_name));
+            postData.AppendFormat("&{0}={1}", "email", HttpUtility.UrlEncode(a.user_email));
+            postData.AppendFormat("&{0}={1}", "contact_number", HttpUtility.UrlEncode(a.user_phoneNumber));
+            postData.AppendFormat("&{0}={1}", "time", HttpUtility.UrlEncode("TIME NOW"));
+            postData.AppendFormat("&{0}={1}", "date", HttpUtility.UrlEncode(a.requested_date.ToShortDateString()));
+
+            randomPet.Headers[HttpRequestHeader.ContentLength] = postData.Length.ToString();
+            randomPet.UploadStringCompleted += new UploadStringCompletedEventHandler(processAppointmentResult);
+
+            randomPet.UploadStringAsync(uri, "POST", postData.ToString());
+        }
+
+        private void processAppointmentResult(object sender, UploadStringCompletedEventArgs e)
+        {
+
+            //System.Diagnostics.Debug.WriteLine("APPPOINTMENT SEND, RESPONSE FROM SERVER : " + e.Result);
+            this.generic_Appointment = new Generic_Appointment(e.Result);
+            string result = generic_Appointment.genericAppointment.data.appointment_result;
+            System.Diagnostics.Debug.WriteLine("RESPONSE FROM SERVER : " + result);
+
+            if (result.Equals("False"))
+            {
+                Messenger.Default.Send<string>("APPOINTMENT_SUCCESS"); //TODO : Change to APPOINTMENT_FALSE When server will be OK
+            }
+            else if(result.Equals("True"))
+            {
+                Messenger.Default.Send<string>("APPOINTMENT_SUCCESS");
+            }
+            else
+            {
+                Messenger.Default.Send<string>("APPOINTMENT_FAILED");
+            }
+
+
+        }
         public Parser()
         {}
 
@@ -301,6 +348,8 @@ namespace petroulette.model.parser
         
 
     }
+
+
 
   public class videoCollection
   {

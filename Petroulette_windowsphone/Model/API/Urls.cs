@@ -15,6 +15,7 @@ namespace petroulette.model.api
         private static string _apiRandom = "/api/random/";
         private static string _apiDetails = "/api/details/";
         private static string _apiNext = "/api/next/";
+        private static string _apiAppointment = "/api/appointment/";
 
         private static CookieContainer _cookie = new CookieContainer();
 
@@ -64,6 +65,13 @@ namespace petroulette.model.api
             }
         }
 
+        public static string getApiAppointment
+        {
+            get
+            {
+                return _apiAppointment;
+            }
+        }
 
 
     }

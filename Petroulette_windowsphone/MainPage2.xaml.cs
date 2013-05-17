@@ -8,6 +8,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using GalaSoft.MvvmLight.Threading;
+using GalaSoft.MvvmLight.Messaging;
+using System.Windows.Input;
 
 namespace MvvmLight4
 {
@@ -20,11 +22,34 @@ namespace MvvmLight4
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DispatcherHelper.CheckBeginInvokeOnUI(() =>
+            Messenger.Default.Send<string>("APPOINTMENT_CLICKED");
+        }
+
+        private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
             {
 
-                MessageBox.Show("Great ! Now, we just need to implement the POST message !");
-            });
+                this.Focus();
+            }
+        }
+
+        private void TextBox_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                this.Focus();
+            }
+        }
+
+        private void TextBox_KeyDown_2(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                this.Focus();
+            }
         }
     }
 }

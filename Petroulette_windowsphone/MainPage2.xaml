@@ -53,7 +53,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Name :" Grid.Column="0" VerticalAlignment="Center"  Margin="0,38,0,40" />
-                        <TextBox Text="{Binding Main.AppointmentName, Mode=TwoWay}"  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,15,0,14" />
+                        <TextBox Text="{Binding Main.AppointmentName, Mode=TwoWay}"  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,15,0,14" KeyDown="TextBox_KeyDown" />
                     </Grid>
 
                     <Grid>
@@ -62,7 +62,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Email :"  VerticalAlignment="Center" Height="27" Margin="0,38,0,40" />
-                        <TextBox  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,17,0,16" Text="{Binding Main.AppointmentEmail, Mode=TwoWay}" />
+                        <TextBox  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,17,0,16" Text="{Binding Main.AppointmentEmail, Mode=TwoWay}" KeyDown="TextBox_KeyDown_1" />
                     </Grid>
 
                     <Grid>
@@ -71,7 +71,7 @@
                             <ColumnDefinition Width="5*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Phone Number :"  VerticalAlignment="Center" Height="27" Margin="0,38,0,40" />
-                        <TextBox  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,17,0,16" Text="{Binding Main.AppointmentPhoneNumber, Mode=TwoWay}" />
+                        <TextBox  Grid.Column="1" VerticalAlignment="Center" Height="72" Margin="0,17,0,16" Text="{Binding Main.AppointmentPhoneNumber, Mode=TwoWay}" InputScope="Number" KeyDown="TextBox_KeyDown_2" />
                     </Grid>
 
                     <Grid>
@@ -86,7 +86,7 @@
 
 
 
-                    <Button   Content="OK" IsEnabled="{Binding Main.AppointmentOk}" Click="Button_Click" />
+                    <Button    IsEnabled="{Binding Main.AppointmentOk}" Click="Button_Click" Content="{Binding Main.AppointmentButtonContent}" />
 
                     <Line  X1="240" Y1="0"  Margin="0,13,0,10"  StrokeThickness="1" Stroke="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 

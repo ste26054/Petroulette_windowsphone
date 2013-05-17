@@ -34,12 +34,8 @@ namespace MvvmLight4.ViewModel
         public string NetworkErrorMessage { get { return "An error occured. Please check your internet connection, then tap \"...\" on the bottom bar and \"Reload Application\""; } }
         public Parser theParser { get; set; }
 
-        public Pet thePet
-        {
-            get;
-            set;
-        }
-
+        public Pet thePet { get; set; }
+        public Appointment theAppointment { get; set; }
         public int error_count { get; set; }
        /* public string VideoThumbnail
         {
@@ -77,6 +73,7 @@ namespace MvvmLight4.ViewModel
         private string _appointmentPhoneNumber;
         private DateTime _appointmentDate;
         private bool _appointmentOk;
+        private string _appointmentButtonContent;
 
        // private string _videoThumbnail;
 
@@ -298,7 +295,6 @@ namespace MvvmLight4.ViewModel
             set
             {
                 _appointmentOk = value;
-               // CheckAppointment();
                 DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentOk"); });
 
             }
@@ -331,11 +327,44 @@ namespace MvvmLight4.ViewModel
         public void CheckAppointment()
         {
             if (Checker.check_user_email(AppointmentEmail) && Checker.check_user_name(AppointmentName) && Checker.check_user_phone_number(AppointmentPhoneNumber) && Checker.check_user_requested_date(AppointmentDate))
-                DispatcherHelper.CheckBeginInvokeOnUI(() => { AppointmentOk = true; });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => 
+                { 
+                    AppointmentOk = true;
+                    SetAppointmentButtonText();
+                });
 
             else
-                DispatcherHelper.CheckBeginInvokeOnUI(() => { AppointmentOk = false; });
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { 
+                    AppointmentOk = false;
+                    SetAppointmentButtonText();
+                });
             
+        }
+        public string AppointmentButtonContent
+        {
+            get
+            {
+        return _appointmentButtonContent;
+         }
+            set
+            {
+                _appointmentButtonContent = value;
+                DispatcherHelper.CheckBeginInvokeOnUI(() => { RaisePropertyChanged("AppointmentButtonContent"); });
+            }
+
+        }
+   
+
+        public void SetAppointmentButtonText()
+        {
+            if (AppointmentOk == true)
+            {
+                AppointmentButtonContent = "Confirm !";
+            }
+            else
+            {
+                AppointmentButtonContent = "Some fields are incorrect";
+            }
         }
 
         public void ReinitializeAppointment()
@@ -345,6 +374,9 @@ namespace MvvmLight4.ViewModel
             AppointmentName = "";
             AppointmentPhoneNumber = "";
         }
+
+
+
         public MainViewModel()
         {
             if (!ViewModelBase.IsInDesignModeStatic)
@@ -352,12 +384,15 @@ namespace MvvmLight4.ViewModel
                 this.error_count = 0;
                 Messenger.Default.Register<Parser>(this, process_fill);
                 Messenger.Default.Register<string>("MEDIA_ENDED", process_random);
-                //Messenger.Default.Register<string>("NEXT_FINISHED", process_random);
+
                 Messenger.Default.Register<string>("NEXT_CLICKED", process_next);
                 Messenger.Default.Register<string>("GOT_URI", process_play);
                 Messenger.Default.Register<string>("EXCEPTION", process_exception);
                 Messenger.Default.Register<Video>(this, process_video_changed);
-                //Messenger.Default.Register<Parser>("NEXT_FINISHED", process_fill);
+
+                Messenger.Default.Register<string>("APPOINTMENT_CLICKED", process_appointment);
+                Messenger.Default.Register<string>("APPOINTMENT_SUCCESS", process_appointment_failed);
+                Messenger.Default.Register<string>("APPOINTMENT_FAILED", process_appointment_success);
 
                 
 
@@ -495,6 +530,40 @@ namespace MvvmLight4.ViewModel
             }
         }
 
+
+        void process_appointment(string str)
+        {
+            if(str.Equals("APPOINTMENT_CLICKED"))
+            {
+                theAppointment = new Appointment(AppointmentName, AppointmentEmail, AppointmentPhoneNumber, AppointmentDate, thePet);
+                theParser.post(theAppointment);
+
+            }
+        }
+
+        void process_appointment_success(string str)
+        {
+            if (str.Equals("APPOINTMENT_SUCCESS"))
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+                  {
+                      MessageBox.Show("Your appointment was successfully set !");
+                  });
+            }
+
+        }
+
+        void process_appointment_failed(string str)
+        {
+            if (str.Equals("APPOINTMENT_FAILED"))
+            {
+                DispatcherHelper.CheckBeginInvokeOnUI(() =>
+               {
+                   MessageBox.Show("We could not set your appointment, please retry later");
+               });
+            }
+
+        }
 
         void process_next(string str)
         {

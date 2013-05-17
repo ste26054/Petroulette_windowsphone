@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvvmLight4.Model.Parser
+namespace petroulette.model.parser
 {
-    class Generic_Appointment
+     public class Generic_Appointment
     {
         public class modelAppointmentQuery
         {
