@@ -209,12 +209,12 @@ namespace MvvmLight4
        
         }
 
-        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
+        private void Hints_button_click(object sender, EventArgs e)
         {
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 
-                MessageBox.Show("Hints :\n- Tap to play/pause the video\n- Double tap to restart the video\n- Hold tap to hide/show the bottom bar !");
+                MessageBox.Show("Hints :\n- Tap to play/pause the video\n- Double tap to restart the video\n- Tap and hold to hide/show the bottom bar !");
             });
         }
 
@@ -231,6 +231,12 @@ namespace MvvmLight4
             NavigationService.Navigate(new Uri("/MainPage2.xaml", UriKind.Relative));
 
         }
+
+        private void Donate_button_click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage3.xaml", UriKind.Relative));
+        }
        
+        
     }
 }

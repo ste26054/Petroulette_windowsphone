@@ -95,7 +95,7 @@
                 <Button Grid.Row="0"  Grid.Column="1" x:Name="Next_button" IsEnabled="True" Content="Next this pet !" Click="Next_button_Click" />
             </Grid>
 
-            <ScrollViewer  VerticalScrollBarVisibility="Visible" Margin="20,0,10,10" Height="300"  >
+            <ScrollViewer  VerticalScrollBarVisibility="Visible" Margin="20,0,10,10" Height="320"  >
 
 
                 <StackPanel x:Name="ControlPanel"  >
@@ -180,7 +180,8 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Design/Icons/Help.png" Text="Hints" Click="ApplicationBarIconButton_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Design/Icons/Help.png" Text="Hints" Click="Hints_button_click"/>
+            <shell:ApplicationBarIconButton IconUri="/Design/Icons/Like.png"  Text="Donate" Click="Donate_button_click"/>
 
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Reload Application" Click="ApplicationBarMenuItem_Click"/>

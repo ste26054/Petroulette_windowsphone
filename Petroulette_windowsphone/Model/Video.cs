@@ -16,12 +16,14 @@ namespace petroulette.model
 {
      public class Video //Class concerning youtube videos
     {
-        public string video_url { get; set; }
-        public Uri video_uri { get; set; }
-        public string video_thumbnail { get; set; }
-        public string video_title { get; set; }
-        static readonly object _locker = new object();
-        static bool _go;
+        public string video_url { get; set; }   //original url of the youtube video
+        public Uri video_uri { get; set; }  //real url of the youtube video (direct link)
+        public string video_thumbnail { get; set; } //url to the video preview picture
+        public string video_title { get; set; } //title of the video
+        
+        static readonly object _locker = new object(); //Semaphore
+        static bool _go;    //Semaphore
+
         Exception exception;
 
         public Video(string _url, string _title)
@@ -29,9 +31,9 @@ namespace petroulette.model
             this.video_url = _url;
             this.video_thumbnail = this.getThumbnail();
             this.video_title = _title;
-            //this.getVideoUri(); //This method needs bandwidth, maybe consider calling it only if needed ?
+            //this.getVideoUri(); //This method needs bandwidth, consider calling it only if needed
 
-
+            //For testing purposes
             //this.video_url = "http://www.youtube.com/watch?v=wXw6znXPfy4"; //Really short video    
             //this.video_url = "http://www.youtube.com/watch?v=NauzKqmJ6y8&feature=share"; //A cat.
     
@@ -40,14 +42,14 @@ namespace petroulette.model
         public string getThumbnail()
         {
             System.Diagnostics.Debug.WriteLine("GENERATED THUMBNAIL");
-            return "http://img.youtube.com/vi/" + this.getYoutubeId() + "/0.jpg";
+            return "http://img.youtube.com/vi/" + this.getYoutubeId() + "/0.jpg"; 
 
         }
 
         public string getYoutubeId() //Method that uses a regexp to get the video id from any youtube url
         {
 
-            Regex Youtube = new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)");
+            Regex Youtube = new Regex(@"youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)"); //regex that help to get video id
             Match youtubeMatch = Youtube.Match(video_url);
 
             string id = "";
@@ -60,16 +62,15 @@ namespace petroulette.model
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("Youtube id mismatch");
+                System.Diagnostics.Debug.WriteLine("Youtube id error");
                 throw new Exception("get_youtube_id_exception");
             }
             return id;
-          //  return "1234";
         }
 
        public void getVideoUri() //Method that uses MyToolkit to get the actual .mp4 link to the youtube video
         {//There isn't actually others ways to directly play the video within our app (regular methods are using an external player
-        // and we don't have any control on the video...
+        // and we don't have any control on the video...)
             exception = null;
             
             Action < YouTube.YouTubeUri, Exception > Completed = downloadLinkCompleted;
@@ -77,6 +78,7 @@ namespace petroulette.model
             YouTube.GetVideoUri(this.getYoutubeId(), YouTubeQuality.Quality480P,Completed); //asynchronous method that will get the real link given a video quality
 
             System.Diagnostics.Debug.WriteLine("WAITING FOR VIDEO URI !");
+
             lock (_locker)
                 while (!_go)
                 {
@@ -86,7 +88,8 @@ namespace petroulette.model
             {
                 System.Diagnostics.Debug.WriteLine("GOT VIDEO URI !");
                 _go = false;
-                Messenger.Default.Send<string>("GOT_URI");
+
+                Messenger.Default.Send<string>("GOT_URI"); //Sending message that we got uri
             }
             else
             {
@@ -100,7 +103,7 @@ namespace petroulette.model
           
               if (excep != null)
                {
-                   System.Diagnostics.Debug.WriteLine("EXCEPTION_1 IN GET VIDEO URI FROM YOUTUBE !!");
+                  System.Diagnostics.Debug.WriteLine("EXCEPTION_1 IN GET VIDEO URI FROM YOUTUBE !!");
                   exception = new Exception("get_youtube_uri_exception");
                   lock (_locker)
                   {

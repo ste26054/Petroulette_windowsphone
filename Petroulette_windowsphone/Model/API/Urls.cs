@@ -12,7 +12,7 @@ namespace petroulette.model.api
         private static string _url = "78.193.45.72:20081"; //server host + port (optionnal)
 
 
-        private static string _apiRandom = "/api/random/";
+        private static string _apiRandom = "/api/random/";  
         private static string _apiDetails = "/api/details/";
         private static string _apiNext = "/api/next/";
         private static string _apiAppointment = "/api/appointment/";

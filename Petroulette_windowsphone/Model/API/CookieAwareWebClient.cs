@@ -25,25 +25,11 @@ namespace petroulette.model.api
             return httpRequest;
         }
 
-     /*   protected override WebResponse GetWebResponse(WebRequest request, IAsyncResult result)
-        {
-            
-                    WebResponse response = base.GetWebResponse(request, result);
-                  
-  
-            return response;
-    }*/
-
-                
-
-        
-
-
-        public CookieContainer getCookieContainer()
+        public CookieContainer GetCookieContainer()
         {
             return this.m_container;
         }
-        public void setCookieContainer(CookieContainer n)
+        public void SetCookieContainer(CookieContainer n)
         {
             this.m_container = n;
         }
@@ -53,7 +39,7 @@ namespace petroulette.model.api
 
         public CookieAwareWebClient(CookieContainer theCookie) : base()
         {
-            this.setCookieContainer(theCookie);
+            this.SetCookieContainer(theCookie);
         }
 
     }

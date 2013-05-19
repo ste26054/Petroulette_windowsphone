@@ -84,7 +84,7 @@ namespace petroulette.model.parser
                 string jsonString = (string)e.Result;
                 this.downloadedJsonPet = jsonString; //Saves the downloaded Json
 
-                Urls.setCookie(randomPet.getCookieContainer()); //keeps the session cookie
+                Urls.setCookie(randomPet.GetCookieContainer()); //keeps the session cookie
                // Urls.setCookie(randomPet.
                 this.downloadJsonPetDetails(); //downloads the details part of pet
             }
@@ -303,8 +303,8 @@ namespace petroulette.model.parser
             postData.AppendFormat("{0}={1}", "name", HttpUtility.UrlEncode(a.user_name));
             postData.AppendFormat("&{0}={1}", "email", HttpUtility.UrlEncode(a.user_email));
             postData.AppendFormat("&{0}={1}", "contact_number", HttpUtility.UrlEncode(a.user_phoneNumber));
-            postData.AppendFormat("&{0}={1}", "time", HttpUtility.UrlEncode("TIME NOW"));
-            postData.AppendFormat("&{0}={1}", "date", HttpUtility.UrlEncode(a.requested_date.ToShortDateString()));
+            postData.AppendFormat("&{0}={1}", "time", HttpUtility.UrlEncode("TIME NOW"));                           //TODO
+            postData.AppendFormat("&{0}={1}", "date", HttpUtility.UrlEncode(a.requested_date.ToShortDateString())); //TODO
 
             randomPet.Headers[HttpRequestHeader.ContentLength] = postData.Length.ToString();
             randomPet.UploadStringCompleted += new UploadStringCompletedEventHandler(processAppointmentResult);
@@ -335,20 +335,16 @@ namespace petroulette.model.parser
 
 
         }
-        public Parser()
-        {}
+        
+        public Parser(){}
 
         public Parser(int a)
         {
            Thread thread = new System.Threading.Thread(random);
            thread.Start();
-     
         }
 
-        
-
     }
-
 
 
   public class videoCollection

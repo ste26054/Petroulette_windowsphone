@@ -31,7 +31,7 @@ namespace MvvmLight4.ViewModel
 
         public string ApplicationName { get { return "PETROULETTE MOBILE APP"; } }
         public string PageName { get { return "random pet"; } }
-        public string NetworkErrorMessage { get { return "An error occured. Please check your internet connection, then tap \"...\" on the bottom bar and \"Reload Application\""; } }
+        public string NetworkErrorMessage { get { return "An error occured. Please check your internet connection !"; } }
         public Parser theParser { get; set; }
 
         public Pet thePet { get; set; }
