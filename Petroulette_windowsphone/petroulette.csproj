@@ -94,14 +94,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="View\MainPage.xaml.cs">
+    <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainPage2.xaml.cs">
+    <Compile Include="MainPage2.xaml.cs">
       <DependentUpon>MainPage2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainPage3.xaml.cs">
-      <DependentUpon>MainPage3.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Api\CookieAwareWebClient.cs" />
     <Compile Include="Model\Api\Urls.cs" />
@@ -113,7 +110,7 @@
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Model\Pet.cs" />
     <Compile Include="Model\Video.cs" />
-    <Compile Include="View\MainPage3.xaml.cs">
+    <Compile Include="MainPage3.xaml.cs">
       <DependentUpon>MainPage3.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,21 +127,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="View\MainPage.xaml">
+    <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MainPage2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainPage3.xaml">
+    <Page Include="MainPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage3.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +202,9 @@
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
