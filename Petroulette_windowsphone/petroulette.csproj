@@ -100,6 +100,9 @@
     <Compile Include="View\MainPage2.xaml.cs">
       <DependentUpon>MainPage2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainPage3.xaml.cs">
+      <DependentUpon>MainPage3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Api\CookieAwareWebClient.cs" />
     <Compile Include="Model\Api\Urls.cs" />
     <Compile Include="Model\Appointment.cs" />
@@ -138,6 +141,10 @@
     <Page Include="View\MainPage3.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -182,10 +189,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GalaSoft.MvvmLight.Extras.WP8">
-      <HintPath>..\..\..\..\..\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.Extras.WP8.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.WP8">
-      <HintPath>..\..\..\..\..\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.WP8.dll</HintPath>
+      <HintPath>C:\Users\Stephane\Downloads\MVVMLight_V4_1_26\WP8\GalaSoft.MvvmLight.WP8.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
