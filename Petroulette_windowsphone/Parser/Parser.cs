@@ -294,8 +294,9 @@ namespace petroulette.model.parser
 
         public void post(Appointment a)
         {
-            
+            //Creation of Headers for post
             randomPet.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+           
             var uri = new Uri("http://" + Urls.getUrl + Urls.getApiAppointment, UriKind.Absolute);
 
             StringBuilder postData = new StringBuilder();
@@ -303,7 +304,7 @@ namespace petroulette.model.parser
             postData.AppendFormat("{0}={1}", "name", HttpUtility.UrlEncode(a.user_name));
             postData.AppendFormat("&{0}={1}", "email", HttpUtility.UrlEncode(a.user_email));
             postData.AppendFormat("&{0}={1}", "contact_number", HttpUtility.UrlEncode(a.user_phoneNumber));
-            postData.AppendFormat("&{0}={1}", "time", HttpUtility.UrlEncode("TIME NOW"));                           //TODO
+            postData.AppendFormat("&{0}={1}", "time", HttpUtility.UrlEncode(DateTime.Now.ToShortDateString()));     //TODO                      //TODO
             postData.AppendFormat("&{0}={1}", "date", HttpUtility.UrlEncode(a.requested_date.ToShortDateString())); //TODO
 
             randomPet.Headers[HttpRequestHeader.ContentLength] = postData.Length.ToString();

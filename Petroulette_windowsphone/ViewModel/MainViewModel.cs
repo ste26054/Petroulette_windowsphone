@@ -600,5 +600,24 @@ namespace MvvmLight4.ViewModel
 
         ////    base.Cleanup();
         ////}
+
+        public string ImageSource
+        {
+            get
+            {
+                if ((Visibility)App.Current.Resources["PhoneDarkThemeVisibility"]
+                  == Visibility.Visible)
+                {
+                    return "/Design/screen_transparent_black.png";
+
+                }
+                else
+                {
+                    return "/Design/screen_transparent.png";
+
+                }
+            }
+            private set { }
+        }
     }
 }

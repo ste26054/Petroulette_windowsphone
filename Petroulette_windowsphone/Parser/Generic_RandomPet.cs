@@ -78,8 +78,6 @@ namespace petroulette.model.parser
         public Generic_RandomPet(string toParse)
         {
             genericPet = JsonConvert.DeserializeObject<modelRandomRootObject>(toParse);
-            System.Diagnostics.Debug.WriteLine(genericPet.data.video.video_link);
-
 
         }
 

@@ -36,17 +36,19 @@ namespace MvvmLight4
 
                    player.MaxWidth = System.Windows.Application.Current.Host.Content.ActualHeight;
                    player.MaxHeight = System.Windows.Application.Current.Host.Content.ActualWidth;
-            
-                   
 
-                
+                   player.Width = System.Windows.Application.Current.Host.Content.ActualHeight;
+                   player.Height = System.Windows.Application.Current.Host.Content.ActualWidth;
+                   shape.MaxHeight = System.Windows.Application.Current.Host.Content.ActualWidth;
+
+                   shape.Height = System.Windows.Application.Current.Host.Content.ActualWidth;
 
                }
                else
                {
                    player.MaxWidth = System.Windows.Application.Current.Host.Content.ActualWidth;
-                   player.MaxHeight = 320;
-
+                   player.MaxHeight = 280;
+                   shape.MaxHeight = 280;
                    TitlePanel.Visibility = System.Windows.Visibility.Visible;
                    Buttons.Visibility = System.Windows.Visibility.Visible;
                    ControlPanel.Visibility = System.Windows.Visibility.Visible;
@@ -64,8 +66,11 @@ namespace MvvmLight4
             timer.Tick += new EventHandler(timer_tick);
             Messenger.Default.Register<Uri>("PLAY_REQUESTED", play);
             Next_button.IsEnabled = false;
+            pic_adopt.Opacity = 0.3;
+            pic_next.Opacity = 0.3;
+            //Next_button.Visibility = System.Windows.Visibility.Collapsed;
             Adopt_button.IsEnabled = false;
-
+            //Adopt_button.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         public void ResetLoadingPreferences()
@@ -86,7 +91,11 @@ namespace MvvmLight4
             DispatcherHelper.CheckBeginInvokeOnUI(() =>
             {
                 Next_button.IsEnabled = true;
+                //Next_button.Visibility = System.Windows.Visibility.Visible;
                 Adopt_button.IsEnabled = true;
+                //Adopt_button.Visibility = System.Windows.Visibility.Visible;
+                pic_adopt.Opacity = 1;
+                pic_next.Opacity = 1;
                 player.Stop();
                 player.Source = url;
                 player.Play();
@@ -101,7 +110,11 @@ namespace MvvmLight4
         private void player_MediaEnded(object sender, RoutedEventArgs e)
         {
             Next_button.IsEnabled = false;
+            //Next_button.Visibility = System.Windows.Visibility.Collapsed;
             Adopt_button.IsEnabled = false;
+            pic_adopt.Opacity = 0.3;
+            pic_next.Opacity = 0.3;
+            //Adopt_button.Visibility = System.Windows.Visibility.Collapsed;
             Messenger.Default.Send<string>("MEDIA_ENDED"); 
             ResetLoadingPreferences();
         }
@@ -114,9 +127,13 @@ namespace MvvmLight4
                 player.Stop();
             });
             ResetLoadingPreferences();
-            Messenger.Default.Send<string>("NEXT_CLICKED"); 
+            Messenger.Default.Send<string>("NEXT_CLICKED");
             Next_button.IsEnabled = false;
+            //Next_button.Visibility = System.Windows.Visibility.Collapsed;
             Adopt_button.IsEnabled = false;
+            pic_adopt.Opacity = 0.3;
+            pic_next.Opacity = 0.3;
+            //Adopt_button.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         void timer_tick(object sender, EventArgs e)
@@ -203,7 +220,9 @@ namespace MvvmLight4
         {//TODO
 
             Next_button.IsEnabled = false;
+            //Next_button.Visibility = System.Windows.Visibility.Collapsed;
             Adopt_button.IsEnabled = false;
+            //Adopt_button.Visibility = System.Windows.Visibility.Collapsed;
             Messenger.Default.Send<string>("MEDIA_ENDED");
             ResetLoadingPreferences();
        
@@ -235,6 +254,11 @@ namespace MvvmLight4
         private void Donate_button_click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage3.xaml", UriKind.Relative));
+        }
+
+        private void Adopt_button_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
         }
        
         
